@@ -10,8 +10,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author Jason
+ * Written and authored by Jason Bisanti. Free to use and reproduce.
+ * 
+ * @author Jason Bisanti
  */
 public final class Util
 {
