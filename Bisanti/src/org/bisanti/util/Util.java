@@ -65,6 +65,11 @@ public final class Util
         return map == null || map.isEmpty();
     }
     
+    public static boolean isNullOrEmpty(Object[] array)
+    {
+        return array == null || array.length == 0;
+    }
+    
     public static boolean equalCollections(Collection col1, Collection col2, boolean considerOrder)
     {
         if(containsNull(col1, col2))

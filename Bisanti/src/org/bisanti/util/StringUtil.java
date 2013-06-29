@@ -5,6 +5,8 @@
 package org.bisanti.util;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Written and authored by Jason Bisanti. Free to use and reproduce.
@@ -20,21 +22,56 @@ public final class StringUtil
         return s == null || s.isEmpty();
     }
     
-    public static StringBuilder toStringBuilder(Collection c, String delimiter)
+    public static StringBuilder toString(Collection c, String delimiter)
     {
         StringBuilder builder = new StringBuilder();
         if(!Util.isNullOrEmpty(c))
         {
-            int count = 0;
-            for(Object obj: c)
+            Iterator it = c.iterator();
+            builder.append(it.next());
+            while(it.hasNext())
             {
-                builder.append(obj);
-                if(++count < c.size())
+                builder.append(delimiter);
+                builder.append(it.next());
+            }
+            
+        }
+        return builder;
+    }
+    
+    public static StringBuilder toString(Map m, String keyValueDelimiter, String entryDelimiter)
+    {
+        StringBuilder builder = new StringBuilder();
+        if(!Util.isNullOrEmpty(m))
+        {
+            Iterator<Map.Entry> it = m.entrySet().iterator();
+            Map.Entry entry = it.next();
+            builder.append(entry.getKey()).append(keyValueDelimiter);
+            builder.append(entry.getValue());
+            while(it.hasNext())
+            {
+                builder.append(entryDelimiter);
+                entry = it.next();
+                builder.append(entry.getKey()).append(keyValueDelimiter);
+                builder.append(entry.getValue());
+            }            
+        }
+        return builder;
+    }
+    
+    public static StringBuilder toString(String delimiter, Object... objects)
+    {
+        StringBuilder builder = new StringBuilder();
+        if(!Util.isNullOrEmpty(objects))
+        {
+            for(int i=0; i<objects.length; i++)
+            {
+                builder.append(objects[i]);
+                if(i+1 < objects.length)
                 {
                     builder.append(delimiter);
                 }
             }
-            
         }
         return builder;
     }
