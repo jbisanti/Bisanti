@@ -76,4 +76,20 @@ public final class StringUtil
         return builder;
     }
     
+    public static boolean contains(String s, CharSequence... others)
+    {
+        if(!Util.isNullOrEmpty(others))
+        {
+            for(CharSequence cs: others)
+            {
+                if(s.contains(cs))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
 }

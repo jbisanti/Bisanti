@@ -28,6 +28,8 @@ public final class FileUtil
     
     public static final String MAIN_DIR = System.getProperty("user.dir");
     
+    public static final String USER_HOME = System.getProperty("user.home");
+    
     private FileUtil(){};
     
     public static boolean isSerializable(Object object)
@@ -112,11 +114,11 @@ public final class FileUtil
         try
         {
             fis = new FileInputStream(file);
-            ois = new ObjectInputStream(ois);
-            while(ois.available() > 0)
-            {
+            ois = new ObjectInputStream(fis);
+//            while(ois.available() > 0)
+//            {
                 loaded.add(type.cast(ois.readObject()));
-            }
+//            }
             return loaded;
         }
         catch(Exception ex)
