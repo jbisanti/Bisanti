@@ -22,6 +22,11 @@ import javax.swing.table.TableModel;
  */
 public class JTablePlus extends JTable
 {
+    /** 
+     * A {@link List} of all the {@link TableColumn}s, both shown and hidden. 
+     * Because of {@link JTable} instantiation code, this is lazily instantiated
+     * in method {@link setColumnModel(TableColumnModel)}.
+     */
     private List<TableColumn> columns;
 
     public JTablePlus()
