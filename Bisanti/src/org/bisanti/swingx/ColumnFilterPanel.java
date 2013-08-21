@@ -5,8 +5,14 @@
 package org.bisanti.swingx;
 
 import java.awt.Component;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import org.bisanti.util.Util;
 
 /**
  *
@@ -14,6 +20,7 @@ import javax.swing.JList;
  */
 public class ColumnFilterPanel extends javax.swing.JPanel
 {
+    
     public static enum FILTER
     {
         EQUALS("equals", false),
@@ -50,12 +57,29 @@ public class ColumnFilterPanel extends javax.swing.JPanel
     
     public static final String OR_BUTTON = "columnFilterOrButton";
     
+    private TableColumnModel model;
+    
     /**
      * Creates new form ColumnFilterPanel
      */
     public ColumnFilterPanel()
     {
         initComponents();
+        
+        this.columnComboBox.setRenderer(new DefaultListCellRenderer()
+        {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus)
+            {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof TableColumn)
+                {
+                    super.setText(((TableColumn)value).getIdentifier().toString());
+                }
+                return this;
+            }            
+        });
+        
         this.filterComboBox.setRenderer(new DefaultListCellRenderer()
         {
             @Override
@@ -69,6 +93,17 @@ public class ColumnFilterPanel extends javax.swing.JPanel
                 return this;
             }                   
         });
+    }
+    
+    public ColumnFilterPanel(TableColumnModel model, TableColumn column)
+    {
+        this.model = model;
+        TableColumn[] columns = Util.asList(model.getColumns()).toArray(new TableColumn[model.getColumnCount()]);
+        this.columnComboBox.setModel(new DefaultComboBoxModel(columns));
+        if(column != null)
+        {
+            this.columnComboBox.setSelectedItem(column);
+        }
     }
 
     /**

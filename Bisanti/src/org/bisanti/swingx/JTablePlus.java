@@ -256,7 +256,21 @@ public class JTablePlus extends JTable
      */
     protected JPopupMenu createTableMenu()
     {
-        JPopupMenu menu = new JPopupMenu();
+        final JPopupMenu menu = new JPopupMenu();
+        
+        JMenuItem filter = new JMenuItem("Filter...");
+        filter.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                ColumnFilterPopup cfp = new ColumnFilterPopup();
+                cfp.setLocationRelativeTo(JTablePlus.this);
+                cfp.setVisible(true);
+            }
+        });
+        menu.add(filter);
+        
         if(sortOrder != SortOrder.UNSORTED && this.sortedColumn != -1)
         {
             JMenuItem unsort = new JMenuItem("Unsort/UnFilter");

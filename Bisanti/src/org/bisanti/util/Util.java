@@ -4,8 +4,11 @@
  */
 package org.bisanti.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -68,6 +71,26 @@ public final class Util
     public static boolean isNullOrEmpty(Object[] array)
     {
         return array == null || array.length == 0;
+    }
+    
+    public static <T> List<T> asList(Iterator<T> iterator)
+    {
+        List<T> list = new ArrayList<T>();
+        while(iterator.hasNext())
+        {
+            list.add(iterator.next());
+        }
+        return list;
+    }
+    
+    public static <T> List<T> asList(Enumeration<T> enumeration)
+    {
+        List<T> list = new ArrayList<T>();
+        while(enumeration.hasMoreElements())
+        {
+            list.add(enumeration.nextElement());
+        }
+        return list;
     }
     
     public static boolean equalCollections(Collection col1, Collection col2, boolean considerOrder)

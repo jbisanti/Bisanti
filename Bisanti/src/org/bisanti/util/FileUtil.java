@@ -4,10 +4,13 @@
  */
 package org.bisanti.util;
 
+import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Written and authored by Jason Bisanti. Free to use and reproduce.
@@ -130,6 +135,40 @@ public final class FileUtil
             close(fis, ois);
         }
     }    
+    
+    public static List<String> readText(String filename) throws Exception
+    {
+        return readText(new File(filename));
+    }
+    
+    public static List<String> readText(File file) throws Exception
+    {
+        List<String> list = new ArrayList<String>();
+        
+        FileReader fr = null;
+        BufferedReader br = null;
+        try
+        {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            
+            String line;
+            while( (line=br.readLine()) != null )
+            {
+                list.add(line);
+            }
+            
+            return list;
+        } 
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            close(fr, br);
+        }
+    }
     
     private static class DummyObjectStream extends ObjectOutputStream
     {

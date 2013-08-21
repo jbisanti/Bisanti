@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public final class StringUtil
 {
+    public static final String NEW_LINE = System.getProperty("line.separator");
+    
     private StringUtil(){};
     
     public static boolean isNullOrEmpty(String s)
@@ -76,13 +78,62 @@ public final class StringUtil
         return builder;
     }
     
-    public static boolean contains(String s, CharSequence... others)
+    public static boolean equals(String string, CharSequence sequence, CharSequence... others)
     {
+        if(string.equals(sequence == null ? null : sequence.toString()))
+        {
+            return true;
+        }
+        
         if(!Util.isNullOrEmpty(others))
         {
             for(CharSequence cs: others)
             {
-                if(s.contains(cs))
+                if(string.equals(cs == null ? null : cs.toString()))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean contains(String string, CharSequence sequence, CharSequence... others)
+    {
+        if(string.contains(sequence))
+        {
+            return true;
+        }
+        
+        if(!Util.isNullOrEmpty(others))
+        {
+            for(CharSequence cs: others)
+            {
+                if(string.contains(cs))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean containsIgnoreCase(String string, CharSequence sequence, CharSequence... others)
+    {
+        string = string.toUpperCase();
+        
+        if(string.contains(sequence.toString().toUpperCase()))
+        {
+            return true;
+        }
+        
+        if(!Util.isNullOrEmpty(others))
+        {
+            for(CharSequence cs: others)
+            {
+                if(string.contains(cs.toString().toUpperCase()))
                 {
                     return true;
                 }
