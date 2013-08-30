@@ -24,7 +24,25 @@ public final class StringUtil
         return s == null || s.isEmpty();
     }
     
-    public static StringBuilder toString(Collection c, String delimiter)
+    public static String nonNull(Object obj, boolean trim)
+    {
+        if(obj == null)
+        {
+            return "";
+        }
+        
+        String s = String.valueOf(obj);
+        if(trim)
+        {
+            return s.trim();
+        }
+        else
+        {
+            return s;
+        }
+    }
+    
+    public static String toString(Collection c, String delimiter)
     {
         StringBuilder builder = new StringBuilder();
         if(!Util.isNullOrEmpty(c))
@@ -38,10 +56,10 @@ public final class StringUtil
             }
             
         }
-        return builder;
+        return builder.toString();
     }
     
-    public static StringBuilder toString(Map m, String keyValueDelimiter, String entryDelimiter)
+    public static String toString(Map m, String keyValueDelimiter, String entryDelimiter)
     {
         StringBuilder builder = new StringBuilder();
         if(!Util.isNullOrEmpty(m))
@@ -58,10 +76,10 @@ public final class StringUtil
                 builder.append(entry.getValue());
             }            
         }
-        return builder;
+        return builder.toString();
     }
     
-    public static StringBuilder toString(String delimiter, Object... objects)
+    public static String toString(String delimiter, Object... objects)
     {
         StringBuilder builder = new StringBuilder();
         if(!Util.isNullOrEmpty(objects))
@@ -75,7 +93,7 @@ public final class StringUtil
                 }
             }
         }
-        return builder;
+        return builder.toString();
     }
     
     public static boolean equals(String string, CharSequence sequence, CharSequence... others)
@@ -142,5 +160,21 @@ public final class StringUtil
         
         return false;
     }
+    
+    public static String replaceLast(String toModify, CharSequence replace, CharSequence replaceWith)
+    {
+        int index = toModify.lastIndexOf(replace.toString());
+        if(index < 0)
+        {
+            return toModify;
+        }
+        
+        StringBuilder sb = new StringBuilder(toModify);
+        sb.delete(index, replace.length());
+        sb.insert(index, replaceWith);
+        return sb.toString();
+    }
+    
+    
     
 }
