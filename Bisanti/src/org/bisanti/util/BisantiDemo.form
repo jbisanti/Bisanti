@@ -96,7 +96,7 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="281" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="282" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="removeButton" alignment="3" min="-2" max="-2" attributes="0"/>

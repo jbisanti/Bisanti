@@ -18,7 +18,7 @@ import org.bisanti.swingx.JTablePlus;
  *
  * @author Jason Bisanti
  */
-class BisantiDemo extends javax.swing.JFrame
+public class BisantiDemo extends javax.swing.JFrame
 {
     private AboutBisanti about;
     
