@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -274,7 +273,7 @@ public class JTablePlus extends JTable
         if(scrollPane instanceof JScrollPane)
         {
             ((JScrollPane)scrollPane).setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            final JButton menu = new JButton(UIManager.getIcon("FileChooser.upFolderIcon"));
+            final JButton menu = new JButton(new javax.swing.ImageIcon(getClass().getResource("question_icon.png")));
             menu.addActionListener(new ActionListener()
             {
                 @Override
