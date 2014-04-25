@@ -159,12 +159,12 @@ public class ArrayUtilTest
     @Test
     public void testRemove_GenericType_GenericType()
     {
-        System.out.println("remove");
-        Object value = null;
-        T[] array = null;
-        Object[] expResult = null;
-        Object[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+//        System.out.println("remove");
+//        Object value = null;
+//        T[] array = null;
+//        Object[] expResult = null;
+//        Object[] result = ArrayUtil.remove(value, array);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -180,7 +180,7 @@ public class ArrayUtilTest
         boolean[] array = null;
         boolean[] expResult = null;
         boolean[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -196,7 +196,7 @@ public class ArrayUtilTest
         char[] array = null;
         char[] expResult = null;
         char[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -212,7 +212,7 @@ public class ArrayUtilTest
         byte[] array = null;
         byte[] expResult = null;
         byte[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -228,7 +228,7 @@ public class ArrayUtilTest
         short[] array = null;
         short[] expResult = null;
         short[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -244,7 +244,7 @@ public class ArrayUtilTest
         int[] array = null;
         int[] expResult = null;
         int[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -260,7 +260,7 @@ public class ArrayUtilTest
         long[] array = null;
         long[] expResult = null;
         long[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -276,7 +276,7 @@ public class ArrayUtilTest
         float[] array = null;
         float[] expResult = null;
         float[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -292,7 +292,7 @@ public class ArrayUtilTest
         double[] array = null;
         double[] expResult = null;
         double[] result = ArrayUtil.remove(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -303,12 +303,12 @@ public class ArrayUtilTest
     @Test
     public void testAdd_GenericType_GenericType()
     {
-        System.out.println("add");
-        Object value = null;
-        T[] array = null;
-        Object[] expResult = null;
-        Object[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+//        System.out.println("add");
+//        Object value = null;
+//        T[] array = null;
+//        Object[] expResult = null;
+//        Object[] result = ArrayUtil.add(value, array);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -324,7 +324,7 @@ public class ArrayUtilTest
         boolean[] array = null;
         boolean[] expResult = null;
         boolean[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -340,7 +340,7 @@ public class ArrayUtilTest
         char[] array = null;
         char[] expResult = null;
         char[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -356,7 +356,7 @@ public class ArrayUtilTest
         byte[] array = null;
         byte[] expResult = null;
         byte[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -372,7 +372,7 @@ public class ArrayUtilTest
         short[] array = null;
         short[] expResult = null;
         short[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -388,7 +388,7 @@ public class ArrayUtilTest
         int[] array = null;
         int[] expResult = null;
         int[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -404,7 +404,7 @@ public class ArrayUtilTest
         long[] array = null;
         long[] expResult = null;
         long[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -420,7 +420,7 @@ public class ArrayUtilTest
         float[] array = null;
         float[] expResult = null;
         float[] result = ArrayUtil.add(value, array);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -431,12 +431,12 @@ public class ArrayUtilTest
     @Test
     public void testJoin_GenericType_GenericType()
     {
-        System.out.println("join");
-        T[] array1 = null;
-        T[] array2 = null;
-        Object[] expResult = null;
-        Object[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+//        System.out.println("join");
+//        T[] array1 = null;
+//        T[] array2 = null;
+//        Object[] expResult = null;
+//        Object[] result = ArrayUtil.join(array1, array2);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -452,7 +452,7 @@ public class ArrayUtilTest
         boolean[] array2 = null;
         boolean[] expResult = null;
         boolean[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -468,7 +468,7 @@ public class ArrayUtilTest
         char[] array2 = null;
         char[] expResult = null;
         char[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -484,7 +484,7 @@ public class ArrayUtilTest
         byte[] array2 = null;
         byte[] expResult = null;
         byte[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -500,7 +500,7 @@ public class ArrayUtilTest
         short[] array2 = null;
         short[] expResult = null;
         short[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -516,7 +516,7 @@ public class ArrayUtilTest
         int[] array2 = null;
         int[] expResult = null;
         int[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -532,7 +532,7 @@ public class ArrayUtilTest
         long[] array2 = null;
         long[] expResult = null;
         long[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -548,7 +548,7 @@ public class ArrayUtilTest
         float[] array2 = null;
         float[] expResult = null;
         float[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -564,7 +564,7 @@ public class ArrayUtilTest
         double[] array2 = null;
         double[] expResult = null;
         double[] result = ArrayUtil.join(array1, array2);
-        assertArrayEquals(expResult, result);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
