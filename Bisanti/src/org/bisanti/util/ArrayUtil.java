@@ -237,4 +237,5 @@ public final class ArrayUtil
         System.arraycopy(array2, 0, newArray, length1, length2);
         return newArray;
     }
+    
 }

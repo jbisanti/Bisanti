@@ -27,16 +27,14 @@ public final class Util
         {
             return true;
         }
-        else if(others != null && others.length > 0)
+
+        for (Object other : others)
         {
-            for(Object other: others)
+            if (other == null)
             {
-                if(other == null)
-                {
-                    return true;
-                }
+                return true;
             }
-        }
+        }        
         
         return false;
     }
@@ -93,7 +91,7 @@ public final class Util
         return list;
     }
     
-    public static boolean equalCollections(Collection col1, Collection col2, boolean considerOrder)
+    public static boolean equalCollections(boolean considerOrder, Collection col1, Collection col2)
     {
         if(containsNull(col1, col2))
         {
@@ -126,7 +124,7 @@ public final class Util
         }
     }
     
-    public static boolean equalMaps(Map map1, Map map2, boolean considerOrder)
+    public static boolean equalMaps(boolean considerOrder, Map map1, Map map2)
     {
         if(containsNull(map1, map2))
         {

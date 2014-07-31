@@ -13,14 +13,14 @@ package org.bisanti.util;
  */
 public class NumberPlus extends Number implements Comparable<Number>
 {
-    private Number number;
+    private final Number number;
     
-    public NumberPlus(Number number)
+    public NumberPlus()
     {
-        this.number = number;
+        this.number = 0;
     }
     
-    public void setNumber(Number number)
+    public NumberPlus(Number number)
     {
         this.number = number;
     }
@@ -83,8 +83,7 @@ public class NumberPlus extends Number implements Comparable<Number>
     @Override
     public String toString()
     {
-        String toString = this.number.toString();
-        return toString.endsWith(".0") ? StringUtil.replaceLast(toString, ".0", "") : toString;
+        return Double.toString(this.doubleValue());
     }
 
 }

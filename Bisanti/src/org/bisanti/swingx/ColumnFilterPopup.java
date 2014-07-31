@@ -24,13 +24,13 @@ import org.bisanti.util.StringUtil;
  */
 public class ColumnFilterPopup extends javax.swing.JFrame
 {
-    private List<ColumnFilterPanel> filters = new ArrayList<ColumnFilterPanel>();
+    private final List<ColumnFilterPanel> filters = new ArrayList<ColumnFilterPanel>();
     
     private boolean accepted;
     
-    private JTable table;
+    private final JTable table;
     
-    private TableColumn column;
+    private final TableColumn column;
 
     /**
      * Creates new form ColumnFilterPopup
@@ -51,7 +51,7 @@ public class ColumnFilterPopup extends javax.swing.JFrame
             @Override
             public void propertyChange(PropertyChangeEvent evt)
             {                
-                if(StringUtil.equals(evt.getPropertyName(), 
+                if(StringUtil.equal(true, evt.getPropertyName(), 
                         ColumnFilterPanel.AND_BUTTON, 
                         ColumnFilterPanel.OR_BUTTON))
                 {
