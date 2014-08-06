@@ -4,13 +4,10 @@
  */
 package org.bisanti.util;
 
-import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,8 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
 
 /**
  * Written and authored by Jason Bisanti. Free to use and reproduce.
@@ -42,14 +38,14 @@ public final class FileUtil
         return serialize(object) == null;
     }
     
-    public static Exception serialize(Object object)
+    public static IOException serialize(Object object)
     {
         try
         {
             new DummyObjectStream().writeObject(object);
             return null;
         }
-        catch(Exception ex)
+        catch(IOException ex)
         {
             return ex;
         }
@@ -78,12 +74,12 @@ public final class FileUtil
         return failures;
     }
     
-    public static void writeObjects(String filename, Object... objects) throws Exception
+    public static void writeObjects(String filename, Object... objects) throws IOException
     {
         writeObjects(new File(filename), objects);
     }
     
-    public static void writeObjects(File file, Object... objects) throws Exception
+    public static void writeObjects(File file, Object... objects) throws IOException
     {
         FileOutputStream fis = null;
         ObjectOutputStream oos = null;
@@ -96,7 +92,7 @@ public final class FileUtil
                 oos.writeObject(object);
             }
         } 
-        catch (Exception ex)
+        catch (IOException ex)
         {
             throw ex;
         } 
@@ -120,10 +116,10 @@ public final class FileUtil
         {
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
-//            while(ois.available() > 0)
-//            {
+            while(ois.available() > 0)
+            {
                 loaded.add(type.cast(ois.readObject()));
-//            }
+            }
             return loaded;
         }
         catch(Exception ex)
@@ -136,38 +132,21 @@ public final class FileUtil
         }
     }    
     
-    public static List<String> readText(String filename) throws Exception
+    public static List<String> readText(String filename) throws IOException
     {
         return readText(new File(filename));
     }
     
-    public static List<String> readText(File file) throws Exception
+    public static List<String> readText(File file) throws IOException
     {
-        List<String> list = new ArrayList<String>();
-        
-        FileReader fr = null;
-        BufferedReader br = null;
-        try
+        List<String> lines = new ArrayList<String>();
+        Scanner scanner = new Scanner(file);
+        while(scanner.hasNext())
         {
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            
-            String line;
-            while( (line=br.readLine()) != null )
-            {
-                list.add(line);
-            }
-            
-            return list;
-        } 
-        catch (Exception ex)
-        {
-            throw ex;
+            lines.add(scanner.next());
         }
-        finally
-        {
-            close(fr, br);
-        }
+        scanner.close();
+        return lines;
     }
     
     private static class DummyObjectStream extends ObjectOutputStream
