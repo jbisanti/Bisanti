@@ -139,7 +139,12 @@ public final class FileUtil
     
     public static List<String> readText(File file) throws IOException
     {
-        List<String> lines = new ArrayList<String>();
+        return readText(file, 10);
+    }
+    
+    public static List<String> readText(File file, int capacity) throws IOException
+    {
+        List<String> lines = new ArrayList<String>(capacity);
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext())
         {
