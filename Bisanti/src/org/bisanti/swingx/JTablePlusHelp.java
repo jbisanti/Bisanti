@@ -1,13 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.swingx;
 
 import javax.swing.text.html.HTMLEditorKit;
 
 /**
- *
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 public class JTablePlusHelp extends javax.swing.JFrame

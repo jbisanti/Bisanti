@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bisanti.swingx;
 
 import java.awt.Component;
@@ -52,8 +47,10 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- * Written and authored by Jason Bisanti. Free to use and reproduce.
- * <br><br> 
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i> 
  * Extension of {@link JTable} that provides additional features such as the
  * capability to sort rows on multiple and-or criteria and to hide/show columns.
  * Convenient getter methods such as {@link getColumns()}, 

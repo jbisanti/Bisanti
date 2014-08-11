@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bisanti.swingx;
 
 /**
- * Written and authored by Jason Bisanti. Free to use and reproduce.
- * <br><br>
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * {@link Enum} used in the {@link ColumnFilterPanel} to determine what type of
  * equality should be used when determining if a row should be filtered or not.
  * 

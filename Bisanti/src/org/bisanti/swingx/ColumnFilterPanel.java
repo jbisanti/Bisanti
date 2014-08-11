@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.swingx;
 
 import java.awt.Component;
@@ -17,7 +13,10 @@ import org.bisanti.util.StringUtil;
 import org.bisanti.util.Util;
 
 /**
- *
+ *<i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 public class ColumnFilterPanel extends javax.swing.JPanel

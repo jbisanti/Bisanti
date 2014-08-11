@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bisanti.swingx;
 
 import java.awt.Component;
 import javax.swing.text.JTextComponent;
 
 /**
- * Written and authored by Jason Bisanti. Free to use and reproduce.
- * <br><br>
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  *
  * @author Jason Bisanti
  */
@@ -21,14 +17,16 @@ public final class FindDialog
     
     private FindDialog(){}
     
-    public static void showFindDialog(Component relativeTo, JTextComponent textComponent)
+    public static void showFind(Component relativeTo, JTextComponent textComponent)
     {
         int caret = 0;
+        String text = "";
         if(findFrame != null)
         {            
             if(textComponent.equals(findFrame.getTextComponent()))
             {
                 caret = findFrame.getCaretPosition();
+                text = findFrame.getText();
             }
             
             findFrame.dispose();
@@ -36,10 +34,12 @@ public final class FindDialog
         }
         
         findFrame = new FindFrame();
-        findFrame.setCaretPosition(caret);
         findFrame.setTextComponent(textComponent);
+        findFrame.setCaretPosition(caret);
+        findFrame.setText(text);
         findFrame.setLocationRelativeTo(relativeTo);
         findFrame.setVisible(true);
+        findFrame.requestFocus();
     }
     
 }

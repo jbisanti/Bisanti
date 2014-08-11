@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.swingx;
 
 import java.awt.GridBagConstraints;
@@ -19,7 +15,10 @@ import javax.swing.table.TableRowSorter;
 import org.bisanti.util.StringUtil;
 
 /**
- *
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 public class ColumnFilterPopup extends javax.swing.JFrame

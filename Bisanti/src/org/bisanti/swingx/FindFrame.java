@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bisanti.swingx;
 
 import javax.swing.text.JTextComponent;
 import org.bisanti.util.StringUtil;
 
 /**
- *
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 class FindFrame extends javax.swing.JFrame
@@ -24,6 +21,7 @@ class FindFrame extends javax.swing.JFrame
      */
     FindFrame()
     {
+        super("Find");
         initComponents();
         this.commentLabel.setVisible(false);
     }
@@ -48,8 +46,20 @@ class FindFrame extends javax.swing.JFrame
         this.textComponent = textComponent;
     }
     
+    String getText()
+    {
+        return this.findTextField.getText();
+    }
+    
+    void setText(String text)
+    {
+        this.findTextField.setText(text);
+    }
+    
     void find(boolean forward)
     {       
+        this.commentLabel.setVisible(false);
+        
         String toSearch = StringUtil.nonNull(this.textComponent.getText(), false);        
         String toFind = StringUtil.nonNull(this.findTextField.getText(), false);
         final boolean matchCase = this.caseCheckBox.isSelected();
@@ -57,21 +67,24 @@ class FindFrame extends javax.swing.JFrame
         final int index;
         if(forward)
         {
-            index = StringUtil.indexOf(matchCase, toSearch.substring(this.caretPosition), toFind);
+            index = StringUtil.indexOf(matchCase, this.caretPosition, toSearch, toFind);
             this.select(index, toFind);
         }
         else
         {
-            index = StringUtil.lastIndexOf(matchCase, toSearch.substring(0, this.caretPosition), toFind);
+            index = StringUtil.lastIndexOf(matchCase, this.caretPosition, toSearch, toFind);
             this.select(index, toFind);
         }
-        this.caretPosition = index;
         
-        if(this.caretPosition < 0)
+        if(index < 0)
         {
             this.commentLabel.setVisible(true);
-            this.commentLabel.setText("No more instances found. Search will resume from " + (forward ? "beginning" : "end"));
+            this.commentLabel.setText("No more instances found. Search will resume from " + (forward ? "beginning." : "end."));
             this.caretPosition = forward ? 0 : toSearch.length() - 1;
+        }
+        else
+        {
+            this.caretPosition = forward ? index + toFind.length() : index;
         }
     }
     
@@ -79,6 +92,7 @@ class FindFrame extends javax.swing.JFrame
     {
         if(index > -1)
         {
+            this.textComponent.grabFocus();
             this.textComponent.select(index, index + s.length());
         }
     }
@@ -111,8 +125,8 @@ class FindFrame extends javax.swing.JFrame
         caseCheckBox = new javax.swing.JCheckBox();
         findTextField = new javax.swing.JTextField();
         commentLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        previousButton = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -123,9 +137,23 @@ class FindFrame extends javax.swing.JFrame
         commentLabel.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         commentLabel.setText("No more instances found. Search will start from beginning/end");
 
-        jButton1.setText("< Previous");
+        previousButton.setText("< Previous");
+        previousButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                previousButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Next >");
+        nextButton.setText("Next >");
+        nextButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,14 +172,14 @@ class FindFrame extends javax.swing.JFrame
                             .addComponent(commentLabel))
                         .addGap(0, 37, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(previousButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -160,15 +188,25 @@ class FindFrame extends javax.swing.JFrame
                 .addComponent(findTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(commentLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(previousButton)
+                    .addComponent(nextButton))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_previousButtonActionPerformed
+    {//GEN-HEADEREND:event_previousButtonActionPerformed
+        this.find(false);
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nextButtonActionPerformed
+    {//GEN-HEADEREND:event_nextButtonActionPerformed
+        this.find(true);
+    }//GEN-LAST:event_nextButtonActionPerformed
 
     
 
@@ -176,8 +214,8 @@ class FindFrame extends javax.swing.JFrame
     private javax.swing.JCheckBox caseCheckBox;
     private javax.swing.JLabel commentLabel;
     private javax.swing.JTextField findTextField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JButton previousButton;
     // End of variables declaration//GEN-END:variables
 }

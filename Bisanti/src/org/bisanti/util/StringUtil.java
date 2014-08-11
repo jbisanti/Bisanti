@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.util;
 
 import java.lang.reflect.Array;
@@ -15,7 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * <i>Written and authored by Jason Bisanti. Free to use and reproduce.
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
  * <br><br></i>
  * A collection of methods and attributes meant to be used for the comparison, 
  * manipulation, and inspection of useful {@link String}-based utilities. Though 
@@ -51,7 +49,21 @@ public final class StringUtil
     }
     
     /**
-     * Constructor to prevent instantiation and extension by other classes.
+     * Default capacity used to estimate the number of characters in an
+     * {@link Object}s toString() method. The default is 25. This is used for
+     * efficiency purposes when calling toString() on a large number of Objects.
+     * <br><br>
+     * E.g., when method {@link toString(CharSequence, Object...)} is called,
+     * a {@link StringBuilder} is instantiated with the number of Objects times
+     * this capacity. 
+     * <br><br>
+     * The default value was an arbitrary decision based on average toString()
+     * lengths. Increase or decrease this value as you see fit.
+     */
+    public static int TOSTRING_CAPACITY = 25;
+    
+    /**
+     * Private constructor to prevent instantiation.
      */
     private StringUtil(){};
     
@@ -101,7 +113,7 @@ public final class StringUtil
             return "";
         }
         
-        StringBuilder builder = new StringBuilder(length * 25);
+        StringBuilder builder = new StringBuilder(length * TOSTRING_CAPACITY);
         builder.append(Array.get(array, 0));
         for(int i=1; i<length; i++)
         {
@@ -228,18 +240,19 @@ public final class StringUtil
      * @return User-friendly {@link String} of all toString() values
      */
     public static String toString(final Collection collection, final CharSequence delimiter)
-    {
-        StringBuilder builder = new StringBuilder(collection.size() * 16);
-        if(!Util.isNullOrEmpty(collection))
+    {        
+        if(Util.isNullOrEmpty(collection))
         {
-            Iterator it = collection.iterator();
+            return "";            
+        }
+        
+        StringBuilder builder = new StringBuilder(collection.size() * 16);
+        Iterator it = collection.iterator();
+        builder.append(it.next());
+        while (it.hasNext())
+        {
+            builder.append(delimiter);
             builder.append(it.next());
-            while(it.hasNext())
-            {
-                builder.append(delimiter);
-                builder.append(it.next());
-            }
-            
         }
         return builder.toString();
     }
@@ -255,22 +268,25 @@ public final class StringUtil
      * @return User-friendly {@link String} of {@link Entry} toString() values
      */
     public static String toString(final Map map, final CharSequence keyValueDelimiter, final CharSequence entryDelimiter)
-    {
-        StringBuilder builder = new StringBuilder(map.size() * 32);
-        if(!Util.isNullOrEmpty(map))
+    {        
+        if(Util.isNullOrEmpty(map))
         {
-            Iterator<Entry> it = map.entrySet().iterator();
-            Entry entry = it.next();
+            return "";
+        }
+        
+        StringBuilder builder = new StringBuilder(map.size() * TOSTRING_CAPACITY * 2);
+        Iterator<Entry> it = map.entrySet().iterator();
+        Entry entry = it.next();
+        builder.append(entry.getKey()).append(keyValueDelimiter);
+        builder.append(entry.getValue());
+        while (it.hasNext())
+        {
+            builder.append(entryDelimiter);
+            entry = it.next();
             builder.append(entry.getKey()).append(keyValueDelimiter);
             builder.append(entry.getValue());
-            while(it.hasNext())
-            {
-                builder.append(entryDelimiter);
-                entry = it.next();
-                builder.append(entry.getKey()).append(keyValueDelimiter);
-                builder.append(entry.getValue());
-            }            
         }
+        
         return builder.toString();
     }
     
@@ -325,9 +341,25 @@ public final class StringUtil
      */
     public static <T extends CharSequence> int indexOf(final boolean matchCase, final T container, final T sequence)
     {
+        return indexOf(matchCase, 0, container, sequence);
+    }
+    
+    /**
+     * Returns the first index of the occurrence of parameter sequence in 
+     * parameter container starting at the given index.
+     * 
+     * @param <T>
+     * @param matchCase true if case should be considered, false if not
+     * @param index Index from which to start search
+     * @param container The {@link CharSequence} to search in
+     * @param sequence The {@link CharSequence} to search for
+     * @return 0 or greater int value if found, -1 if not found
+     */
+    public static <T extends CharSequence> int indexOf(final boolean matchCase, final int index, final T container, final T sequence)
+    {
         if(container.length() >= sequence.length())
         {
-            for(int i=0; i<container.length(); i++)
+            for(int i=index; i<container.length(); i++)
             {
                 boolean matches = true;
                 
@@ -365,16 +397,32 @@ public final class StringUtil
      */
     public static <T extends CharSequence> int lastIndexOf(final boolean matchCase, final T container, final T sequence)
     {
+        return lastIndexOf(matchCase, container.length() - 1, container, sequence);
+    }
+    
+    /**
+     * Returns the last index of the occurrence of parameter sequence in 
+     * parameter container. 
+     * 
+     * @param <T>
+     * @param matchCase true if case should be considered, false if not
+     * @param startIndex Index from which to start search
+     * @param container The {@link CharSequence} to search in
+     * @param sequence The {@link CharSequence} to search for
+     * @return 0 or greater int value if found, -1 if not found
+     */
+    public static <T extends CharSequence> int lastIndexOf(final boolean matchCase, final int startIndex, final T container, final T sequence)
+    {
         if(container.length() >= sequence.length())
         {
-            for(int i=container.length()-1; i>=0; i--)
+            for(int i=startIndex; i>=0; i--)
             {
                 boolean matches = true;
-                int index = 0;
+                int index = i;
                 
-                for(int j=sequence.length()-1; j>=0; j++)
+                for(int j=sequence.length()-1; j>=0 ; j--)
                 {
-                    if(equal(matchCase, container.charAt(i-index++), sequence.charAt(j)))
+                    if(index < 0 || !equal(matchCase, container.charAt(index--), sequence.charAt(j)))
                     {
                         matches = false;
                         break;
@@ -383,7 +431,7 @@ public final class StringUtil
                 
                 if(matches)
                 {
-                    return i - index + 1;
+                    return index + 1;
                 }
             }
         }

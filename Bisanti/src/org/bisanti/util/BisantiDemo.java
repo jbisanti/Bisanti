@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.util;
 
 import java.beans.PropertyChangeEvent;
@@ -15,7 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import org.bisanti.swingx.JTablePlus;
 
 /**
- *
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 public class BisantiDemo extends javax.swing.JFrame

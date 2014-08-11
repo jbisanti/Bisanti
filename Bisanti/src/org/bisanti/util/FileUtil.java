@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.bisanti.util;
 
 import java.io.Closeable;
@@ -19,8 +15,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Written and authored by Jason Bisanti. Free to use and reproduce.
- *
+ * <i>
+ * Written and authored by Jason Bisanti. Free to use and reproduce, but please
+ * keep my name as the original author!
+ * <br><br></i>
  * @author Jason Bisanti
  */
 public final class FileUtil
