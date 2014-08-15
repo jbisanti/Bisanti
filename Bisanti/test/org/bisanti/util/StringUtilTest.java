@@ -6,6 +6,14 @@
 
 package org.bisanti.util;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -15,6 +23,7 @@ import static org.junit.Assert.*;
  */
 public class StringUtilTest
 {
+    private final String delimiter = ", ";
 
     /**
      * Test of isNullOrEmpty method, of class StringUtil.
@@ -22,10 +31,9 @@ public class StringUtilTest
     @Test
     public void testIsNullOrEmpty()
     {
-        System.out.println("isNullOrEmpty");
         assertEquals(true, StringUtil.isNullOrEmpty(""));
-        assertEquals(false, StringUtil.isNullOrEmpty(" "));
         assertEquals(true, StringUtil.isNullOrEmpty(null));
+        assertEquals(false, StringUtil.isNullOrEmpty(" "));
     }
 
     /**
@@ -34,10 +42,9 @@ public class StringUtilTest
     @Test
     public void testNonNull()
     {
-        System.out.println("nonNull");
         assertEquals("", StringUtil.nonNull(null, true));
-        assertEquals(" ", StringUtil.nonNull(" ", false));
         assertEquals("", StringUtil.nonNull(" ", true));
+        assertEquals(" ", StringUtil.nonNull(" ", false));
     }
 
     /**
@@ -46,11 +53,11 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_ObjectArr()
     {
-        final String delimeter = ", ";
-        final Object x = 'x';
-        final Object y = 'y';
-        final Object z = 'z';
-        assertEquals(x + delimeter + y + delimeter + z, StringUtil.toString(delimeter, x, y, z));
+        Object x = "x";
+        Object y = "y";
+        Object z = "z";
+        String output = x + delimiter + y + delimiter + z;
+        assertEquals(output, StringUtil.toString(delimiter, x, y, z));
     }
 
     /**
@@ -59,10 +66,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_booleanArr()
     {
-        final String delimeter = ", ";
-        final String expected = true + delimeter + false + delimeter + true;
-        assertEquals(expected, StringUtil.toString(delimeter, true, false, true));
-        assertEquals(expected, StringUtil.toString(delimeter, new boolean[]{true, false, true}));
+        String output = "true, false, true";
+        assertEquals(output, StringUtil.toString(this.delimiter, new boolean[]{true, false, true}));
+        assertEquals(output, StringUtil.toString(this.delimiter, true, false, true));
     }
 
     /**
@@ -71,7 +77,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_charArr()
     {
-
+        String output = "x, y, z";
+        assertEquals(output, StringUtil.toString(this.delimiter, new char[]{'x', 'y', 'z'}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 'x', 'y', 'z'));
     }
 
     /**
@@ -80,7 +88,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_byteArr()
     {
-
+        String output = "1, 2, 3";
+        assertEquals(output, StringUtil.toString(this.delimiter, new byte[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1, 2, 3));
     }
 
     /**
@@ -89,7 +99,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_shortArr()
     {
-
+        String output = "1, 2, 3";
+        assertEquals(output, StringUtil.toString(this.delimiter, new short[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1, 2, 3));
     }
 
     /**
@@ -98,7 +110,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_intArr()
     {
-
+        String output = "1, 2, 3";
+        assertEquals(output, StringUtil.toString(this.delimiter, new int[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1, 2, 3));
     }
 
     /**
@@ -107,7 +121,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_longArr()
     {
-
+        String output = "1, 2, 3";
+        assertEquals(output, StringUtil.toString(this.delimiter, new long[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1, 2, 3));
     }
 
     /**
@@ -116,7 +132,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_floatArr()
     {
-
+        String output = "1.0, 2.0, 3.0";
+        assertEquals(output, StringUtil.toString(this.delimiter, new float[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1f, 2f, 3f));
     }
 
     /**
@@ -125,7 +143,9 @@ public class StringUtilTest
     @Test
     public void testToString_CharSequence_doubleArr()
     {
-
+        String output = "1.0, 2.0, 3.0";
+        assertEquals(output, StringUtil.toString(this.delimiter, new double[]{1, 2, 3}));
+        assertEquals(output, StringUtil.toString(this.delimiter, 1d, 2d, 3d));
     }
 
     /**
@@ -134,7 +154,8 @@ public class StringUtilTest
     @Test
     public void testToString_Collection_CharSequence()
     {
-
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        assertEquals("1, 2, 3", StringUtil.toString(list, delimiter));
     }
 
     /**
@@ -143,7 +164,11 @@ public class StringUtilTest
     @Test
     public void testToString_3args()
     {
-
+        SortedMap<Integer, Double> map = new TreeMap<Integer, Double>();
+        map.put(1, 1d);
+        map.put(2, 2d);
+        map.put(3, 3d);
+        assertEquals("1:1.0, 2:2.0, 3:3.0", StringUtil.toString(map, ":", delimiter));
     }
 
     /**
@@ -152,25 +177,47 @@ public class StringUtilTest
     @Test
     public void testEqual_3args_1()
     {
-
+       String match = "mAtcH";
+       assertEquals(true, StringUtil.equal(true, match, match));
+       assertEquals(true, StringUtil.equal(false, match, "fdsafds", "fdaferwe", "23432", "match", "89865"));
+       assertEquals(false, StringUtil.equal(true, match, "fdsafds", "fdaferwe", "23432", "match", "89865"));
+       assertEquals(true, StringUtil.equal(true, match, "fdsafds", "fdaferwe", "23432", match, "89865"));
     }
 
     /**
      * Test of indexOf method, of class StringUtil.
      */
     @Test
-    public void testIndexOf()
+    public void testIndexOf_3args()
     {
+        
+    }
 
+    /**
+     * Test of indexOf method, of class StringUtil.
+     */
+    @Test
+    public void testIndexOf_4args()
+    {
+        
     }
 
     /**
      * Test of lastIndexOf method, of class StringUtil.
      */
     @Test
-    public void testLastIndexOf()
+    public void testLastIndexOf_3args()
     {
+        
+    }
 
+    /**
+     * Test of lastIndexOf method, of class StringUtil.
+     */
+    @Test
+    public void testLastIndexOf_4args()
+    {
+        
     }
 
     /**
@@ -179,7 +226,7 @@ public class StringUtilTest
     @Test
     public void testInsert()
     {
-
+        
     }
 
     /**
@@ -188,7 +235,7 @@ public class StringUtilTest
     @Test
     public void testDeleteFirst()
     {
-
+        
     }
 
     /**
@@ -197,7 +244,7 @@ public class StringUtilTest
     @Test
     public void testDeleteLast()
     {
-
+        
     }
 
     /**
@@ -206,7 +253,7 @@ public class StringUtilTest
     @Test
     public void testDeleteAll()
     {
-
+        
     }
 
     /**
@@ -215,7 +262,7 @@ public class StringUtilTest
     @Test
     public void testTrim_StringArr()
     {
-
+        
     }
 
     /**
@@ -224,7 +271,7 @@ public class StringUtilTest
     @Test
     public void testTrim_1args_1()
     {
-
+        
     }
 
     /**
@@ -233,7 +280,7 @@ public class StringUtilTest
     @Test
     public void testTrim_1args_2()
     {
-
+        
     }
 
     /**
@@ -242,7 +289,7 @@ public class StringUtilTest
     @Test
     public void testEqual_3args_2()
     {
-
+        
     }
 
     /**
@@ -251,7 +298,7 @@ public class StringUtilTest
     @Test
     public void testIsPrintableAscii()
     {
-
+        
     }
     
 }
