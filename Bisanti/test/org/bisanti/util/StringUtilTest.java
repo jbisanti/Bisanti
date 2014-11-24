@@ -190,7 +190,12 @@ public class StringUtilTest
     @Test
     public void testIndexOf_3args()
     {
-        
+        String container = "jfkdsjrioewqruwinbrueiwqrBisantirierqne54254325";
+        final String substring = "BISANTI";
+        assertEquals(true, StringUtil.indexOf(false, container, substring) > -1);
+        assertEquals(-1, StringUtil.indexOf(true, container, substring));
+        container+=substring;
+        assertEquals(true, StringUtil.indexOf(false, container, substring) > -1);
     }
 
     /**
@@ -199,7 +204,11 @@ public class StringUtilTest
     @Test
     public void testIndexOf_4args()
     {
-        
+        final String container = "jfkdsjrioewqruwinbrueiwqrrewrewrierqne54254325BISANTI";
+        String substring = "BISANTIduiuiuiuiuipupioupiouiop";
+        assertEquals(-1, StringUtil.indexOf(false, 10, container, substring));
+        substring = "BISANTI";
+        assertEquals(container.length() - substring.length(), StringUtil.indexOf(false, 10, container, substring));
     }
 
     /**

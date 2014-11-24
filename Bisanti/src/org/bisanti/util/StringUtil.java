@@ -350,25 +350,32 @@ public final class StringUtil
      * 
      * @param <T>
      * @param matchCase true if case should be considered, false if not
-     * @param index Index from which to start search
+     * @param startIndex Index from which to start search
      * @param container The {@link CharSequence} to search in
      * @param sequence The {@link CharSequence} to search for
      * @return 0 or greater int value if found, -1 if not found
      */
-    public static <T extends CharSequence> int indexOf(final boolean matchCase, final int index, final T container, final T sequence)
+    public static <T extends CharSequence> int indexOf(final boolean matchCase, final int startIndex, final T container, final T sequence)
     {
-        if(container.length() >= sequence.length())
+        final int containerLength = container.length();
+        final int sequenceLength = sequence.length();
+        
+        if(containerLength >= sequenceLength)
         {
-            for(int i=index; i<container.length(); i++)
+            for(int i=startIndex; i<containerLength; i++)
             {
+                if( sequenceLength > containerLength-i)
+                {
+                    break;
+                }
+                
                 boolean matches = true;
                 
-                for(int j=0; j<sequence.length(); j++)
+                for(int j=0; j<sequenceLength; j++)
                 {
-                    char c1 = container.charAt(i+j);
-                    char c2 = sequence.charAt(j);
+                    int subIndex = i+j;
                     
-                    if(!equal(matchCase, c1, c2))
+                    if( subIndex >= containerLength || !equal(matchCase, container.charAt(subIndex), sequence.charAt(j)))
                     {
                         matches = false;
                         break;
