@@ -1,5 +1,7 @@
 package org.bisanti.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.Collection;
@@ -291,6 +293,19 @@ public final class StringUtil
     }
     
     /**
+     * Returns a {@link String} of the full stack trace.
+     * 
+     * @param throwable {@link Throwable} of stack trace to obtain
+     * @return {@link String} form of the full stack trace.
+     */
+    public static String getStackTrace(Throwable throwable)
+    {
+        final StringWriter stringWriter = new StringWriter();
+        throwable.printStackTrace(new PrintWriter(stringWriter));
+        return stringWriter.toString();
+    }
+    
+    /**
      * Determines if parameter container is equal to any additional parameter.
      * If no other parameters are present, this method will always return false.
      * 
@@ -568,7 +583,7 @@ public final class StringUtil
             }
             else
             {
-                charSequence = (T) (container.subSequence(0, index).toString() + container.subSequence(index + sequence.length(), container.length()));
+                charSequence = (T) (charSequence.subSequence(0, index).toString() + charSequence.subSequence(index + sequence.length(), charSequence.length()));
             }
         }
         

@@ -7,13 +7,11 @@
 package org.bisanti.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -209,6 +207,7 @@ public class StringUtilTest
         assertEquals(-1, StringUtil.indexOf(false, 10, container, substring));
         substring = "BISANTI";
         assertEquals(container.length() - substring.length(), StringUtil.indexOf(false, 10, container, substring));
+        assertEquals(-1, StringUtil.indexOf(true, 10, container, substring.toLowerCase()));
     }
 
     /**
@@ -217,7 +216,11 @@ public class StringUtilTest
     @Test
     public void testLastIndexOf_3args()
     {
-        
+        final String container = "abcabcABC";
+        final String substring = "ab";
+        assertEquals(6, StringUtil.lastIndexOf(false, container, substring));
+        assertEquals(3, StringUtil.lastIndexOf(true, container, substring));
+        assertEquals(-1, StringUtil.lastIndexOf(false, "43124321423147123423141234", substring));
     }
 
     /**
@@ -226,7 +229,10 @@ public class StringUtilTest
     @Test
     public void testLastIndexOf_4args()
     {
-        
+        final String container = "abcABCabc";
+        String substring = "ab";
+        assertEquals(3, StringUtil.lastIndexOf(false, 4, container, substring));
+        assertEquals(0, StringUtil.lastIndexOf(true, 4, container, substring));
     }
 
     /**
@@ -235,7 +241,12 @@ public class StringUtilTest
     @Test
     public void testInsert()
     {
-        
+        String insertion = "abc";
+        CharSequence container = "123456";
+        final String combined = "123abc456";
+        assertEquals(combined, StringUtil.insert(container, 3, insertion));
+        StringBuilder stringBuilder = new StringBuilder(container);
+        assertEquals(combined, StringUtil.insert(stringBuilder, 3, insertion).toString());
     }
 
     /**
@@ -244,7 +255,10 @@ public class StringUtilTest
     @Test
     public void testDeleteFirst()
     {
-        
+        String s = "ABC123abc";
+        assertEquals("123abc", StringUtil.deleteFirst(false, s, "abc"));
+        assertEquals("ABC123", StringUtil.deleteFirst(true, s, "abc"));
+        assertEquals(s, StringUtil.deleteFirst(false, s, "0000"));
     }
 
     /**
@@ -253,7 +267,10 @@ public class StringUtilTest
     @Test
     public void testDeleteLast()
     {
-        
+        String s = "ABC123abc";
+        assertEquals("ABC123", StringUtil.deleteLast(false, s, "ABC"));
+        assertEquals("123abc", StringUtil.deleteLast(true, s, "ABC"));
+        assertEquals(s, StringUtil.deleteLast(true, s, "000"));
     }
 
     /**
@@ -262,7 +279,10 @@ public class StringUtilTest
     @Test
     public void testDeleteAll()
     {
-        
+        String s = "ABC123abc";
+        assertEquals("123", StringUtil.deleteAll(false, s, "abc"));
+        assertEquals("ABC123", StringUtil.deleteAll(true, s, "abc"));
+        assertEquals(s, StringUtil.deleteLast(true, s, "000"));
     }
 
     /**
@@ -271,7 +291,12 @@ public class StringUtilTest
     @Test
     public void testTrim_StringArr()
     {
-        
+        String[] array = new String[]{"123   ", "  123", "123", " 123 "};
+        StringUtil.trim(array);
+        for(String s: array)
+        {
+            assertEquals("123", s);
+        }
     }
 
     /**
@@ -280,7 +305,12 @@ public class StringUtilTest
     @Test
     public void testTrim_1args_1()
     {
-        
+        List<String> list = Arrays.asList("123  ", " 123", "123", "  123  ");
+        StringUtil.trim(list);
+        for(String s: list)
+        {
+            assertEquals("123", s);
+        }
     }
 
     /**
@@ -289,7 +319,10 @@ public class StringUtilTest
     @Test
     public void testTrim_1args_2()
     {
-        
+        Set<String> set = new HashSet<String>(Arrays.asList("123  ", " 123", "123", "  123  "));
+        set = StringUtil.trim(set);
+        assertEquals(1, set.size());
+        assertEquals("123", set.iterator().next());
     }
 
     /**
@@ -298,7 +331,9 @@ public class StringUtilTest
     @Test
     public void testEqual_3args_2()
     {
-        
+        assertEquals(false, StringUtil.equal(false, 'z', 'a'));
+        assertEquals(true, StringUtil.equal(false, 'A', 'a'));
+        assertEquals(false, StringUtil.equal(true, 'A', 'a'));
     }
 
     /**
@@ -307,7 +342,8 @@ public class StringUtilTest
     @Test
     public void testIsPrintableAscii()
     {
-        
+        assertEquals(true, StringUtil.isPrintableAscii('a'));
+        assertEquals(false, StringUtil.isPrintableAscii('\n'));
     }
     
 }
