@@ -118,7 +118,7 @@ public final class Util
         }
         else
         {
-            return col1.size() == col2.size() && col1.containsAll(col2);
+            return col1 == col2 || (col1.size() == col2.size() && col1.containsAll(col2) && col2.containsAll(col1));
         }
     }
     
