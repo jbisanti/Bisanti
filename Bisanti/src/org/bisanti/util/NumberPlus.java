@@ -12,14 +12,37 @@ public class NumberPlus extends Number implements Comparable<Number>
 {
     private final Number number;
     
-    public NumberPlus()
-    {
-        this.number = 0;
-    }
+    private final int hashCode;
     
     public NumberPlus(Number number)
     {
         this.number = number;
+        this.hashCode = Double.valueOf(this.doubleValue()).hashCode();
+    }
+    
+    public NumberPlus add(Number number)
+    {
+        return new NumberPlus(this.doubleValue() + number.doubleValue());
+    }
+    
+    public NumberPlus subtract(Number number)
+    {
+        return new NumberPlus(this.doubleValue() - number.doubleValue());
+    }
+    
+    public NumberPlus multiply(Number number)
+    {
+        return new NumberPlus(this.doubleValue() * number.doubleValue());
+    }
+    
+    public NumberPlus divide(Number number)
+    {
+        return new NumberPlus(this.doubleValue() / number.doubleValue());
+    }
+    
+    public NumberPlus modulus(Number number)
+    {
+        return new NumberPlus(this.doubleValue() % number.doubleValue());
     }
 
     @Override
@@ -67,7 +90,7 @@ public class NumberPlus extends Number implements Comparable<Number>
     @Override
     public int hashCode()
     {
-        return Double.valueOf(this.doubleValue()).hashCode();
+        return this.hashCode;
     }
 
     @Override
@@ -80,7 +103,7 @@ public class NumberPlus extends Number implements Comparable<Number>
     @Override
     public String toString()
     {
-        return Double.toString(this.doubleValue());
+        return this.number.toString();
     }
 
 }
