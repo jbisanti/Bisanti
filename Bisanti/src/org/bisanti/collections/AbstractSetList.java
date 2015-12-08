@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
+import org.bisanti.util.StringUtil;
 
 /**
  * <i>
@@ -20,6 +21,7 @@ import java.util.Set;
  * <br><br></i>
  *
  * @author Jason Bisanti
+ * @param <T>
  */
 public abstract class AbstractSetList<T> implements List<T>, Set<T> 
 {
@@ -167,6 +169,12 @@ public abstract class AbstractSetList<T> implements List<T>, Set<T>
     public List<T> subList(int fromIndex, int toIndex)
     {
         return this.list.subList(fromIndex, toIndex);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return '[' + StringUtil.toString(", ", this) + ']';
     }
 
 }

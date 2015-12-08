@@ -6,8 +6,8 @@
 
 package org.bisanti.collections;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -68,8 +68,12 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
     
     public TreeList(Comparator<T> comparator, List<T> list)
     {
-        this(list);
+        this(list.size());
         this.comparator = comparator;
+        for(T element: list)
+        {
+            this.add(element);
+        }
     }
     
     private int compare(T element1, T element2)
@@ -89,83 +93,45 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
         {
             return this.list.add(e);
         }
-        else if(this.compare(this.first(), e) < 0)
-        {
-            this.list.add(0, e);
-            return true;
-        }
-        else if(this.compare(this.last(), e) > 0)
-        {
-            return this.list.add(e);
-        }
         
-        for(int i=1; i<this.size()-1; i++)
+        for(int i=0; i<super.size(); i++)
         {
-            int compare = this.compare(this.get(i), e);
-            
-            if(compare == 0)
+            int compare = this.compare(e, super.get(i));
+            if(compare < 0)
+            {
+                super.list.add(i, e);
+                return true;
+            }
+            else if(compare == 0)
             {
                 return false;
             }
-            else if(compare < 0)
-            {
-                this.list.add(i, e);
-                return true;
-            }            
-        }        
-        return false;
+        }
+        
+        return super.list.add(e);
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c)
     {
-        return this.addAll(0, c);
+        final int oldSize = super.size();
+        
+        for(T element: c)
+        {
+            this.add(element);
+        }
+        
+        return oldSize != super.size();
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c)
     {
         final int oldSize = super.size();
-        Iterator<? extends T> others = null;
         
-        if(super.isEmpty())
+        for(T element: c)
         {
-            if(c.isEmpty())
-            {
-                return false;
-            }
-            else if(c.size() == 1)
-            {
-                return this.list.add(c.iterator().next());
-            }
-            else
-            {
-                others = c.iterator();
-                this.list.add(others.next());
-            }
-        }
-        else
-        {
-            others = c.iterator();
-        }
-        
-        while(others.hasNext())
-        {
-            T next = others.next();
-            List<T> subList = super.subList(index, super.size());
-            for(int i=1; i<subList.size()-1; i++)
-            {
-                if(this.compare(subList.get(i), next) == 0)
-                {
-                    break;
-                }
-                else if(this.compare(subList.get(i-1), next) > 0 &&
-                        this.compare(next, subList.get(i+1)) < 0)
-                {
-                    this.list.add(index++, next);
-                    break;
-                }
-            }
+            this.add(index, element);
         }
         
         return oldSize != super.size();
@@ -179,14 +145,14 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
         boolean valid = false;
         if(index == 0)
         {
-            if(this.compare(element, this.get(1)) < 0)
+            if(this.compare(element, this.first()) < 0)
             {
                 valid = true;
             }
         }
         else if(index == super.size()-1)
         {
-            if(this.compare(this.get(super.size()-1), element) > 0)
+            if(this.compare(this.last(), element) > 0)
             {
                 valid = true;
             }
@@ -200,102 +166,230 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
             }
         }
         
-        if(valid)
-        {
-            this.list.set(index, element);
-        }
-        
-        return null;
+        return valid ? this.list.set(index, element) : null;
     }
 
     @Override
     public void add(int index, T element)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super.rangeCheck(index);
+        
+        if(index == 0)
+        {
+            if(super.isEmpty() || this.compare(element, this.first()) < 0)
+            {
+                super.list.add(0, element);
+            }
+        }
+        else if(index == super.size())
+        {
+            if(this.compare(element, this.last()) > 0)
+            {
+                super.list.add(element);
+            }
+        }
+        else
+        {
+            int compare1 = this.compare(element, super.get(index - 1));
+            int compare2 = this.compare(element, super.get(index));
+            if (compare1 > 0 && compare2 < 0)
+            {
+                super.list.add(index++, element);
+            }     
+        }
     }
 
     @Override
     public T lower(T e)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    {        
+        int index = super.indexOf(e);
+        return index <= 0 ? null : this.get(index-1);
     }
 
     @Override
     public T floor(T e)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = super.indexOf(e);
+        if(index > -1)
+        {
+            return this.get(index);
+        }
+        else
+        {
+            ListIterator<T> it = this.listIterator(super.size());
+            while(it.hasPrevious())
+            {
+                T current = it.previous();
+                if(current.compareTo(e) <= 0)
+                {
+                    return current;
+                }
+            }
+            return null;            
+        }
+        
     }
 
     @Override
     public T ceiling(T e)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = super.indexOf(e);
+        if(index > -1)
+        {
+            return this.get(index);
+        }
+        else
+        {
+            Iterator<T> it = this.iterator();
+            while(it.hasNext())
+            {
+                T current = it.next();
+                if(current.compareTo(e) >= 0)
+                {
+                    return current;
+                }
+            }
+            return null;            
+        }
     }
 
     @Override
     public T higher(T e)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Iterator<T> it = this.iterator();
+        while (it.hasNext())
+        {
+            T current = it.next();
+            if (current.compareTo(e) > 0)
+            {
+                return current;
+            }
+        }
+        return null;
     }
 
     @Override
     public T pollFirst()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.isEmpty() ? null : super.remove(0);
     }
 
     @Override
     public T pollLast()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.isEmpty() ? null : super.remove(super.size()-1);
     }
 
     @Override
     public NavigableSet<T> descendingSet()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new TreeList<T>(Collections.reverseOrder(this.comparator), super.list);
     }
 
     @Override
     public Iterator<T> descendingIterator()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.descendingSet().iterator();
     }
 
     @Override
     public NavigableSet<T> subSet(T fromElement, boolean fromInclusive, T toElement, boolean toInclusive)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int startIndex = this.indexOf(fromElement);
+        if(!fromInclusive)
+        {
+            startIndex++;
+        }
+        int endIndex = this.indexOf(toElement);
+        if(!toInclusive)
+        {
+            endIndex--;
+        }
+
+        return new TreeList<T>(this.comparator, this.subList(startIndex, endIndex+1));
     }
 
     @Override
     public NavigableSet<T> headSet(T toElement, boolean inclusive)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = super.indexOf(toElement);
+        if(index < 0)
+        {
+            throw new IllegalArgumentException("Set does not contain 'fromElement'");
+        }
+        
+        NavigableSet<T> headSet = new TreeList<T>(this.comparator, index);
+        ListIterator<T> it = super.listIterator(index);
+        if(inclusive && it.hasNext())
+        {
+            it.next();
+        }
+        
+        while(it.hasPrevious())
+        {
+            headSet.add(it.previous());
+        }
+        
+        return headSet;
     }
 
     @Override
     public NavigableSet<T> tailSet(T fromElement, boolean inclusive)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = super.indexOf(fromElement);
+        if(index < 0)
+        {
+            throw new IllegalArgumentException("Set does not contain 'fromElement'");
+        }
+        
+        NavigableSet<T> headSet = new TreeList<T>(this.comparator, index);
+        ListIterator<T> it = super.listIterator(index);
+        if(!inclusive && it.hasNext())
+        {
+            it.next();
+        }
+        
+        while(it.hasNext())
+        {
+            headSet.add(it.next());
+        }
+        
+        return headSet;
     }
 
     @Override
     public SortedSet<T> subSet(T fromElement, T toElement)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int start = super.indexOf(fromElement);
+        if(start < 0)
+        {
+            throw new IllegalArgumentException("Set does not contain 'fromElement'");
+        }
+        
+        int end = super.indexOf(toElement);
+        if(end < 0)
+        {
+            throw new IllegalArgumentException("Set does not contain 'toElement'");
+        }
+        
+        if(end <= start)
+        {
+            throw new IllegalArgumentException("'fromElement' is located after 'toElement'");
+        }
+        
+        return new TreeList<T>(this.comparator, super.subList(start, end));
     }
 
     @Override
     public SortedSet<T> headSet(T toElement)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.headSet(toElement, false);
     }
 
     @Override
     public SortedSet<T> tailSet(T fromElement)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.tailSet(fromElement, false);
     }
 
     @Override
@@ -315,5 +409,5 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
     {
         return this.isEmpty() ? null : this.list.get(super.size()-1);
     }
-
+    
 }
