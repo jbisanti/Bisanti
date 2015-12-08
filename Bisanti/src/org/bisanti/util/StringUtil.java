@@ -138,6 +138,34 @@ public final class StringUtil
     }
     
     /**
+     * A convenience method to print the each toString() value for each element
+     * in any {@link Collection}.
+     * 
+     * @param delimiter {@link CharSequence} to print between elements
+     * @param collection Any {@link Collection}
+     * @return {@link String}
+     */
+    public static String toString(final CharSequence delimiter, final Collection collection)
+    {
+        if(!Util.isNullOrEmpty(collection))
+        {
+            StringBuilder sb = new StringBuilder();
+            Iterator it = collection.iterator();
+            if(it.hasNext())
+            {
+                sb.append(it.next());
+            }
+            while(it.hasNext())
+            {
+                sb.append(delimiter).append(it.next());
+            }
+            return sb.append(']').toString();
+        }        
+        
+        return "";        
+    }
+    
+    /**
      * A convenience method to print the toString() value of each boolean.
      * 
      * @param booleans Any number of booleans or any boolean array
