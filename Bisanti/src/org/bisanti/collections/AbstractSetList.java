@@ -168,7 +168,7 @@ public abstract class AbstractSetList<T> implements List<T>, Set<T>
     @Override
     public List<T> subList(int fromIndex, int toIndex)
     {
-        return this.list.subList(fromIndex, toIndex);
+        return new SubSetList<T>(this, fromIndex, toIndex-1);
     }
     
     @Override
