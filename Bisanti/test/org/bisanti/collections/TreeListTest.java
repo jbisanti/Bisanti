@@ -218,11 +218,12 @@ public class TreeListTest
         this.instance.addAll(Arrays.asList(1, 2, 3, 4, 5));
         Integer max = this.instance.last();
         NavigableSet<Integer> set = this.instance.descendingSet();
-        assertEquals(Integer.valueOf(5), set.pollFirst());
-        assertEquals(Integer.valueOf(4), set.pollFirst());
-        assertEquals(Integer.valueOf(3), set.pollFirst());
-        assertEquals(Integer.valueOf(2), set.pollFirst());
-        assertEquals(Integer.valueOf(1), set.pollFirst());
+        Integer val = 5;
+        assertEquals(val--, set.pollFirst());
+        assertEquals(val--, set.pollFirst());
+        assertEquals(val--, set.pollFirst());
+        assertEquals(val--, set.pollFirst());
+        assertEquals(val--, set.pollFirst());
     }
 
     /**
@@ -252,18 +253,26 @@ public class TreeListTest
         this.instance.addAll(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1));
         NavigableSet<Integer> set = this.instance.subSet(2, true, 6, true);
         assertEquals(5, set.size());
-        assertEquals(Integer.valueOf(2), set.pollFirst());
-        assertEquals(Integer.valueOf(3), set.pollFirst());
-        assertEquals(Integer.valueOf(4), set.pollFirst());
-        assertEquals(Integer.valueOf(5), set.pollFirst());
-        assertEquals(Integer.valueOf(6), set.pollFirst());
+        Integer val = 2;
+        assertEquals(val, set.pollFirst());
+        assertEquals(false, this.instance.contains(val++));
+        assertEquals(val, set.pollFirst());
+        assertEquals(false, this.instance.contains(val++));
+        assertEquals(val, set.pollFirst());
+        assertEquals(false, this.instance.contains(val++));
+        assertEquals(val, set.pollFirst());
+        assertEquals(false, this.instance.contains(val++));
+        assertEquals(val, set.pollFirst());
+        assertEquals(5, this.instance.size());
         
+        this.instance.addAll(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1));
         set = this.instance.subSet(2, false, 6, false);
         assertEquals(3, set.size());
         assertEquals(Integer.valueOf(3), set.pollFirst());
         assertEquals(Integer.valueOf(4), set.pollFirst());
         assertEquals(Integer.valueOf(5), set.pollFirst());
         
+        this.instance.addAll(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1));
         set = this.instance.subSet(2, true, 6, false);
         assertEquals(4, set.size());
         assertEquals(Integer.valueOf(2), set.pollFirst());
@@ -271,6 +280,7 @@ public class TreeListTest
         assertEquals(Integer.valueOf(4), set.pollFirst());
         assertEquals(Integer.valueOf(5), set.pollFirst());
         
+        this.instance.addAll(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1));
         set = this.instance.subSet(2, false, 6, true);
         assertEquals(4, set.size());
         assertEquals(Integer.valueOf(3), set.pollFirst());

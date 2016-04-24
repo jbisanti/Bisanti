@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NavigableSet;
 import java.util.SortedSet;
+import org.bisanti.util.Util;
 
 /**
  * <i>
@@ -301,12 +302,12 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
             startIndex++;
         }
         int endIndex = this.indexOf(toElement);
-        if(!toInclusive)
+        if(toInclusive)
         {
-            endIndex--;
+            endIndex++;
         }
 
-        return new TreeList<T>(this.comparator, this.subList(startIndex, endIndex+1));
+        return new SubsetNavigableList<T>(this, startIndex, endIndex);
     }
 
     @Override
@@ -410,4 +411,187 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
         return this.isEmpty() ? null : this.list.get(super.size()-1);
     }
     
+    private class SubsetNavigableList<V extends T> extends SubSetList<V> implements NavigableSet<V>
+    {
+        private SubsetNavigableList(ListSet<V> parent, int fromIndex, int toIndex)
+        {
+            super(parent, fromIndex, toIndex);
+        }
+
+        @Override
+        public V lower(V e)
+        {
+            for(int i=this.maxIndex; i>=this.offset; i++)
+            {
+                V element = super.get(i);
+                if(compare(element, e) < 0)
+                {
+                    return element;
+                }                
+            }            
+            return null;
+        }
+
+        @Override
+        public V floor(V e)
+        {
+            for(int i=this.maxIndex; i>=this.offset; i++)
+            {
+                V element = super.get(i);
+                if(compare(element, e) <= 0)
+                {
+                    return element;
+                }                
+            }            
+            return null;
+        }
+
+        @Override
+        public V ceiling(V e)
+        {
+            for(int i=this.offset; i<=this.maxIndex; i++)
+            {
+                V element = super.get(i);
+                if(compare(element, e) >= 0)
+                {
+                    return element;
+                }                
+            }
+            return null;
+        }
+
+        @Override
+        public V higher(V e)
+        {
+            for(int i=this.offset; i<=this.maxIndex; i++)
+            {
+                V element = super.get(i);
+                if(compare(element, e) >= 0)
+                {
+                    return element;
+                }                
+            }
+            return null;
+        }
+
+        @Override
+        public V pollFirst()
+        {
+            V removed = super.remove(0);
+            this.maxIndex--;
+            return removed;
+        }
+
+        @Override
+        public V pollLast()
+        {
+            V removed = super.remove(this.maxIndex--);
+            return removed;
+        }
+
+        @Override
+        public NavigableSet<V> descendingSet()
+        {
+            comparator = Collections.reverseOrder(comparator);
+            Collections.reverse(this);
+            return this;
+        }
+
+        @Override
+        public Iterator<V> descendingIterator()
+        {
+            comparator = Collections.reverseOrder(comparator);
+            Collections.reverse(this);
+            return this.iterator();
+        }
+
+        @Override
+        public NavigableSet<V> subSet(V fromElement, boolean fromInclusive, V toElement, boolean toInclusive)
+        {
+            int fromIndex = this.indexOf(fromElement);
+            if(!fromInclusive)
+            {
+                fromIndex++;
+            }
+            
+            int toIndex = this.indexOf(toElement);
+            if(!toInclusive)
+            {
+                toIndex--;
+            }
+            super.rangeCheck(fromIndex);
+            super.rangeCheck(toIndex);
+            
+            return new SubsetNavigableList<V>(this, fromIndex, toIndex);
+        }
+
+        @Override
+        public NavigableSet<V> headSet(V toElement, boolean inclusive)
+        {
+            int toIndex = this.indexOf(toElement);
+            if(!inclusive)
+            {
+                toIndex--;
+            }            
+            super.rangeCheck(toIndex);
+            return new SubsetNavigableList<V>(this, 0, toIndex);
+        }
+
+        @Override
+        public NavigableSet<V> tailSet(V fromElement, boolean inclusive)
+        {
+            int fromIndex = this.indexOf(fromElement);
+            if(!inclusive)
+            {
+                fromIndex++;
+            }
+            super.rangeCheck(fromIndex);
+            return new SubsetNavigableList<V>(this, fromIndex, super.size());
+        }
+
+        @Override
+        public SortedSet<V> subSet(V fromElement, V toElement)
+        {
+            int fromIndex = this.indexOf(fromElement);
+            super.rangeCheck(fromIndex);
+            int toIndex = this.indexOf(toElement);
+            super.rangeCheck(toIndex);
+            return new SubsetNavigableList<V>(this, fromIndex, toIndex+1);
+        }
+
+        @Override
+        public SortedSet<V> headSet(V toElement)
+        {
+            int toIndex = this.indexOf(toElement);
+            super.rangeCheck(toIndex);
+            return new SubsetNavigableList<V>(this, 0, toIndex);
+        }
+
+        @Override
+        public SortedSet<V> tailSet(V fromElement)
+        {
+            int fromIndex = this.indexOf(fromElement);
+            super.rangeCheck(fromIndex);
+            return new SubsetNavigableList<V>(this, fromIndex, super.size());
+        }
+
+        @Override
+        public Comparator<? super V> comparator()
+        {
+            return comparator;
+        }
+
+        @Override
+        public V first()
+        {
+            return super.get(0);
+        }
+
+        @Override
+        public V last()
+        {
+            return super.get(super.size()-1);
+        }
+        
+    }
 }

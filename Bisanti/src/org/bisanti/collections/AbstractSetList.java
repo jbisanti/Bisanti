@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
 import org.bisanti.util.StringUtil;
 
 /**
@@ -23,7 +22,7 @@ import org.bisanti.util.StringUtil;
  * @author Jason Bisanti
  * @param <T>
  */
-public abstract class AbstractSetList<T> implements List<T>, Set<T> 
+public abstract class AbstractSetList<T> implements ListSet<T>
 {
     protected List<T> list;
     
@@ -168,13 +167,38 @@ public abstract class AbstractSetList<T> implements List<T>, Set<T>
     @Override
     public List<T> subList(int fromIndex, int toIndex)
     {
-        return new SubSetList<T>(this, fromIndex, toIndex-1);
+        return new SubSetList<T>(this, fromIndex, toIndex);
     }
     
     @Override
     public String toString()
     {
-        return '[' + StringUtil.toString(", ", this) + ']';
+        return this.getClass().getSimpleName() + '[' + StringUtil.toString(", ", this) + ']';
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 41 * hash + (this.list != null ? this.list.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final AbstractSetList<?> other = (AbstractSetList<?>) obj;
+        return !(this.list != other.list && (this.list == null || !this.list.equals(other.list)));
+    }
+    
+    
 
 }

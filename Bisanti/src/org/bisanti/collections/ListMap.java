@@ -167,7 +167,7 @@ public class ListMap<K, V> implements Map<K, V>
     @Override
     public Set<K> keySet()
     {
-        return new SetList<K>(this.keys);
+        return new UniqueList<K>(this.keys);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ListMap<K, V> implements Map<K, V>
     @Override
     public Set<Entry<K, V>> entrySet()
     {
-        Set<Entry<K, V>> entries = new SetList<Entry<K, V>>(this.size());
+        Set<Entry<K, V>> entries = new UniqueList<Entry<K, V>>(this.size());
         for(int i=0; i<this.size(); i++)
         {
             entries.add(new EntryImpl(i));

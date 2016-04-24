@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
-import org.bisanti.util.StringUtil;
 import org.bisanti.util.Util;
 
 /**
@@ -22,22 +20,22 @@ import org.bisanti.util.Util;
  * 
  * @author Jason Bisanti
  */
-public class SubSetList<T> implements List<T>, Set<T>
+public class SubSetList<T> implements ListSet<T>
 {
-    private AbstractSetList<T> parent;
-    private int offset;
-    private int maxIndex;
+    private final ListSet<T> parent;
+    int offset;
+    int maxIndex;
 
-    public SubSetList(AbstractSetList<T> parent, int fromIndex, int toIndex)
+    public SubSetList(ListSet<T> parent, int fromIndex, int toIndex)
     {
         this.parent = parent;
         rangeCheck(fromIndex);
         rangeCheck(toIndex);
         this.offset = fromIndex;
-        this.maxIndex = toIndex + this.offset - 1;
+        this.maxIndex = toIndex;
     }
 
-    private void rangeCheck(int index)
+    protected final void rangeCheck(int index)
     {
         if (index < 0 || index > this.parent.size())
         {
@@ -51,12 +49,9 @@ public class SubSetList<T> implements List<T>, Set<T>
         {
             throw new IndexOutOfBoundsException("Index value is too large");
         } 
-        else
+        else if (index < 0)
         {
-            if (index < 0)
-            {
-                throw new IndexOutOfBoundsException();
-            }
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -69,7 +64,8 @@ public class SubSetList<T> implements List<T>, Set<T>
         {
             maxIndex++;
             return true;
-        } else
+        } 
+        else
         {
             return false;
         }
@@ -331,4 +327,29 @@ public class SubSetList<T> implements List<T>, Set<T>
         }
         return sb.toString();
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 97 * hash + (this.parent != null ? this.parent.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final SubSetList<?> other = (SubSetList<?>) obj;
+        return !(this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent)));
+    }
+    
+    
 }
