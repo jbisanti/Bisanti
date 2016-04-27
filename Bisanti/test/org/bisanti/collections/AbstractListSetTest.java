@@ -18,9 +18,9 @@ import org.junit.Before;
  *
  * @author Jason Bisanti
  */
-public class AbstractSetListTest
+public class AbstractListSetTest
 {
-    private AbstractSetList<Number> setList;
+    private AbstractListSet<Number> setList;
     
     private void setUp(String methodName)
     {
@@ -41,7 +41,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of size method, of class AbstractSetList.
+     * Test of size method, of class AbstractListSet.
      */
     @Test
     public void testSize()
@@ -56,7 +56,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of isEmpty method, of class AbstractSetList.
+     * Test of isEmpty method, of class AbstractListSet.
      */
     @Test
     public void testIsEmpty()
@@ -68,7 +68,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of contains method, of class AbstractSetList.
+     * Test of contains method, of class AbstractListSet.
      */
     @Test
     public void testContains()
@@ -84,7 +84,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of iterator method, of class AbstractSetList.
+     * Test of iterator method, of class AbstractListSet.
      */
     @Test
     public void testIterator()
@@ -101,7 +101,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of toArray method, of class AbstractSetList.
+     * Test of toArray method, of class AbstractListSet.
      */
     @Test
     public void testToArray_0args()
@@ -117,7 +117,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of toArray method, of class AbstractSetList.
+     * Test of toArray method, of class AbstractListSet.
      */
     @Test
     public void testToArray_GenericType()
@@ -143,7 +143,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of remove method, of class AbstractSetList.
+     * Test of remove method, of class AbstractListSet.
      */
     @Test
     public void testRemove_Object()
@@ -161,7 +161,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of containsAll method, of class AbstractSetList.
+     * Test of containsAll method, of class AbstractListSet.
      */
     @Test
     public void testContainsAll()
@@ -176,7 +176,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of removeAll method, of class AbstractSetList.
+     * Test of removeAll method, of class AbstractListSet.
      */
     @Test
     public void testRemoveAll()
@@ -193,7 +193,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of retainAll method, of class AbstractSetList.
+     * Test of retainAll method, of class AbstractListSet.
      */
     @Test
     public void testRetainAll()
@@ -210,7 +210,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of clear method, of class AbstractSetList.
+     * Test of clear method, of class AbstractListSet.
      */
     @Test
     public void testClear()
@@ -223,7 +223,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of get method, of class AbstractSetList.
+     * Test of get method, of class AbstractListSet.
      */
     @Test
     public void testGet()
@@ -238,7 +238,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of remove method, of class AbstractSetList.
+     * Test of remove method, of class AbstractListSet.
      */
     @Test
     public void testRemove_int()
@@ -253,7 +253,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of indexOf method, of class AbstractSetList.
+     * Test of indexOf method, of class AbstractListSet.
      */
     @Test
     public void testIndexOf()
@@ -269,7 +269,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of lastIndexOf method, of class AbstractSetList.
+     * Test of lastIndexOf method, of class AbstractListSet.
      */
     @Test
     public void testLastIndexOf()
@@ -285,7 +285,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of listIterator method, of class AbstractSetList.
+     * Test of listIterator method, of class AbstractListSet.
      */
     @Test
     public void testListIterator_0args()
@@ -307,7 +307,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of listIterator method, of class AbstractSetList.
+     * Test of listIterator method, of class AbstractListSet.
      */
     @Test
     public void testListIterator_int()
@@ -324,7 +324,7 @@ public class AbstractSetListTest
     }
 
     /**
-     * Test of subList method, of class AbstractSetList.
+     * Test of subList method, of class AbstractListSet.
      */
     @Test
     public void testSubList()

@@ -14,18 +14,18 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NavigableSet;
 import java.util.SortedSet;
-import org.bisanti.util.Util;
 
 /**
  * <i>
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
  * <br><br></i>
+ * A {@link ListSet} and {@link NavigableSet} implementation. 
  *
  * @author Jason Bisanti
  * @param <T>
  */
-public class TreeList<T extends Comparable> extends AbstractSetList<T> implements NavigableSet<T>
+public class TreeList<T> extends AbstractListSet<T> implements NavigableSet<T>
 {
     private Comparator<T> comparator;
 
@@ -51,37 +51,33 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
     
     public TreeList(Comparator<T> comparator)
     {
-        this();
+        super();
         this.comparator = comparator;
     }
     
     public TreeList(Comparator<T> comparator, int initialCapacity)
     {
-        this(initialCapacity);
+        super(initialCapacity);
         this.comparator = comparator;
     }
     
     public TreeList(Comparator<T> comparator, Collection<? extends T> c)
     {
-        this(c);
+        super(c.size());
         this.comparator = comparator;
+        this.addAll(c);
     }
     
     public TreeList(Comparator<T> comparator, List<T> list)
     {
-        this(list.size());
-        this.comparator = comparator;
-        for(T element: list)
-        {
-            this.add(element);
-        }
+        this(comparator, (Collection)list);
     }
     
     private int compare(T element1, T element2)
     {
         if(this.comparator == null)
         {
-            return element1.compareTo(element2);
+            return ((Comparable)element1).compareTo((Comparable)element2);
         }
         
         return this.comparator.compare(element1, element2);
@@ -221,7 +217,7 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
             while(it.hasPrevious())
             {
                 T current = it.previous();
-                if(current.compareTo(e) <= 0)
+                if(this.compare(current, e) <= 0)
                 {
                     return current;
                 }
@@ -245,7 +241,7 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
             while(it.hasNext())
             {
                 T current = it.next();
-                if(current.compareTo(e) >= 0)
+                if(this.compare(current, e)  >= 0)
                 {
                     return current;
                 }
@@ -261,7 +257,7 @@ public class TreeList<T extends Comparable> extends AbstractSetList<T> implement
         while (it.hasNext())
         {
             T current = it.next();
-            if (current.compareTo(e) > 0)
+            if (this.compare(current, e)  > 0)
             {
                 return current;
             }

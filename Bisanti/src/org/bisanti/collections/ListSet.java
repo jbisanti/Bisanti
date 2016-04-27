@@ -13,7 +13,11 @@ import java.util.Set;
 /**
  * Written and authored by Jason Bisanti. Free to use and reproduce.
  * <br><br>
- *
+ * A {@link Collection} that implements both the {@link List} and {@link Set}
+ * interfaces. This {@link Collection} guarantees that elements will be ordered
+ * in the order they were added and that there will be no more than one 
+ * occurrence of each element.
+ * 
  * @author Jason Bisanti
  * @param <T>
  */

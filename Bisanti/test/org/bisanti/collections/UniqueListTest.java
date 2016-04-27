@@ -8,10 +8,6 @@ package org.bisanti.collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,15 +22,7 @@ public class UniqueListTest
      */
     @Test
     public void testAdd_GenericType()
-    {
-        TreeSet<Integer> test = new TreeSet<Integer>();
-        test.addAll(Arrays.asList(10, 9, 8, 7, 6));
-        SortedSet<Integer> sub = test.subSet(7, 9);
-        assertEquals(true, sub.add(11));
-        System.out.println(sub);
-        System.out.println(test);
-        
-        
+    {           
         System.out.println("add");
         UniqueList instance = new UniqueList();
         assertEquals(true, instance.add(1));

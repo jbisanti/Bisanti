@@ -18,31 +18,35 @@ import org.bisanti.util.StringUtil;
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
  * <br><br></i>
- *
+ * An implementation of the {@link ListSet} interface where a {@link List} is
+ * used as the backing data structure. It is the responsibility of incorporating
+ * classes to implement the various add methods in accordance with the
+ * {@link ListSet} interface.
+ * 
  * @author Jason Bisanti
  * @param <T>
  */
-public abstract class AbstractSetList<T> implements ListSet<T>
+public abstract class AbstractListSet<T> implements ListSet<T>
 {
     protected List<T> list;
     
-    public AbstractSetList()
+    public AbstractListSet()
     {
         this.list = new ArrayList<T>();
     }
     
-    public AbstractSetList(int initialCapacity)
+    public AbstractListSet(int initialCapacity)
     {
        this.list = new ArrayList<T>(initialCapacity); 
     }
     
-    public AbstractSetList(Collection<? extends T> c)
+    public AbstractListSet(Collection<? extends T> c)
     {
         this(c.size());
         this.addAll(c);
     }
     
-    public AbstractSetList(List<T> list)
+    public AbstractListSet(List<T> list)
     {
         this.list = list;
     }
@@ -195,10 +199,7 @@ public abstract class AbstractSetList<T> implements ListSet<T>
         {
             return false;
         }
-        final AbstractSetList<?> other = (AbstractSetList<?>) obj;
+        final AbstractListSet<?> other = (AbstractListSet<?>) obj;
         return !(this.list != other.list && (this.list == null || !this.list.equals(other.list)));
     }
-    
-    
-
 }

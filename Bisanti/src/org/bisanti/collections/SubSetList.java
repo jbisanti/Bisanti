@@ -17,6 +17,9 @@ import org.bisanti.util.Util;
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
  * <br><br></i>
+ * A {@link ListSet} implementation meant to be a sublist reference for any
+ * other {@link ListSet} implementation. Modifications to this instance will 
+ * also be reflected to the {@link ListSet} it references.
  * 
  * @author Jason Bisanti
  */

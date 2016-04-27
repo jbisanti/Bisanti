@@ -9,27 +9,22 @@ package org.bisanti.collections;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <i>
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
  * <br><br></i>
- * A {@link Collection} that implements both the {@link List} and {@link Set}
- * interfaces. This {@link Collection} guarantees that elements will be ordered
- * in the order they were added and that there will be no more than one 
- * occurrence of each element.
- * <br><br>
- * A {@link List} is used as the backing data structure and calls are made to
+ * 
+ * A {@link ListSet} implementation where calls are made to
  * {@link contains(Object)} to ensure no duplicate elements are added. By 
  * default, an {@link ArrayList} is used as the backing data structure. If you
  * want to use a different {@link List} implementation as the backing data
- * structure, use constructor {@link SetList(List)}.
+ * structure, use constructor {@link #UniqueList(java.util.List)}.
  *
  * @author Jason Bisanti
  */
-public class UniqueList<T> extends AbstractSetList<T>
+public class UniqueList<T> extends AbstractListSet<T>
 {    
     /**
      * Instantiates a new instance with an {@link ArrayList} as the backing
@@ -37,7 +32,7 @@ public class UniqueList<T> extends AbstractSetList<T>
      */
     public UniqueList()
     {
-        this(new ArrayList<T>());
+        super(new ArrayList<T>());
     }
     
     /**
@@ -48,7 +43,7 @@ public class UniqueList<T> extends AbstractSetList<T>
      */
     public UniqueList(int initialCapacity)
     {
-        this(new ArrayList<T>(initialCapacity));
+        super(initialCapacity);
     }
     
     /**
@@ -63,8 +58,7 @@ public class UniqueList<T> extends AbstractSetList<T>
      */
     public UniqueList(Collection<? extends T> c)
     {
-        this(c.size());
-        this.addAll(c);
+        super(c);
     }
     
     /**
@@ -75,7 +69,7 @@ public class UniqueList<T> extends AbstractSetList<T>
      */
     public UniqueList(List<T> list)
     {
-        this.list = list;
+        super(list);
     }
 
     /**

@@ -4,30 +4,33 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/ColumnFilter.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ListMap.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/NumberPlus.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ListMap.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/UniqueListTest.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/ColumnFilterPopup.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/AbstractSetList.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/AboutBisanti.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ListSet.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/FindFrame.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/SubSetList.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/StringUtilTest.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/BisantiDemo.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/ArrayUtilTest.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/ColumnFilter.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/TreeListTest.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/JTablePlusHelp.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/AbstractSetList.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/ColumnFilterPopup.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/AbstractSetListTest.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/Util.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/ColumnFilterPanel.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/AboutBisanti.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/ArrayUtil.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/Pair.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/JTablePlus.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/FindFrame.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/StringUtilTest.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/SetList.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/TreeList.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/BisantiDemo.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/MultipleRowFilter.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/TreeList.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/StringUtil.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/SetListTest.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/swingx/FindDialog.java</file>
-            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/ArrayUtilTest.java</file>
             <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/util/FileUtil.java</file>
+            <file>file:/C:/Users/Jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/UniqueList.java</file>
         </group>
     </open-files>
 </project-private>

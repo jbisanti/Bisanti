@@ -6,213 +6,70 @@
 
 package org.bisanti.collections;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <i>
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
  * <br><br></i>
+ * 
+ * An extension of the {@link Map} interface that keeps keys in the order that
+ * they were added. Methods that allow retrievals, additions, removals, and 
+ * indexes are included.
  *
  * @author Jason Bisanti
+ * @param <T>
+ * @param <V>
  */
-public class ListMap<K, V> implements Map<K, V>
+public interface ListMap<T, V> extends Map<T, V>
 {
-    private List<K> keys;
+    /**
+     * Returns the {@link Entry} at the given index.
+     * 
+     * @param index Index to retrieve
+     * @return {@link Entry}
+     */
+    public Entry<T, V> get(int index);
     
-    private List<V> values;
+    /**
+     * Removes the {@link Entry} at the given index.
+     * 
+     * @param index Index to remove
+     * @return {@link Entry}
+     */
+    public Entry<T, V> remove(int index);
     
-    public ListMap()
-    {
-        this(new ArrayList<K>(), new ArrayList<V>());
-    }
+    /**
+     * Sets the key and value at the given index if the key parameter is not
+     * already present.
+     * 
+     * @param index Index to set key and value
+     * @param key Key to set at index
+     * @param value Value to set at index
+     * @return {@link Entry} or null if parameter key is already present in this
+     * {@link ListMap}
+     */
+    public Entry<T, V> set(int index, T key, V value);
     
-    public ListMap(List<K> keys, List<V> values)
-    {
-        this.keys = keys;
-        this.values = values;
-    }
+    /**
+     * Adds the key and value at the given index if the key parameter is not
+     * already present.
+     * 
+     * @param index Index to add key and value
+     * @param key Key to set at index
+     * @param value Value to set at index
+     * @return true if the key and value were set or false if parameter key is
+     * already present in this {@link ListMap} 
+     */
+    public boolean add(int index, T key, V value);
     
-    public ListMap(Map<? extends K, ? extends V> map)
-    {
-        this(map.size());
-        this.putAll(map);
-    }
-    
-    public ListMap(int initialCapacity)
-    {
-        this(new ArrayList<K>(initialCapacity), new ArrayList<V>(initialCapacity));
-    }
-    
-    private void rangeCheck(int index)
-    {
-        if(index < 0 || index >= this.size())
-        {
-            throw new IndexOutOfBoundsException();
-        }
-    }
-    
-    public Entry<K, V> getEntry(int index)
-    {
-        this.rangeCheck(index);
-        return new EntryImpl(index);
-    }
-    
-    public Entry<K, V> removeEntry(int index)
-    {
-        this.rangeCheck(index);
-        final K key = this.keys.remove(index);
-        final V value = this.values.remove(index);
-        return new Entry<K, V>()
-        {
-            @Override
-            public K getKey()
-            {
-                return key;
-            }
-
-            @Override
-            public V getValue()
-            {
-                return value;
-            }
-
-            @Override
-            public V setValue(V value)
-            {
-                throw new UnsupportedOperationException();
-            }
-        };
-    }
-
-    @Override
-    public int size()
-    {
-        return this.keys.size();
-    }
-
-    @Override
-    public boolean isEmpty()
-    {
-        return this.keys.isEmpty();
-    }
-
-    @Override
-    public boolean containsKey(Object key)
-    {
-        return this.keys.contains(key);
-    }
-
-    @Override
-    public boolean containsValue(Object value)
-    {
-        return this.values.contains(value);
-    }
-
-    @Override
-    public V get(Object key)
-    {
-        int index = this.keys.indexOf(key);
-        return index < 0 ? null : this.values.get(index);
-    }
-
-    @Override
-    public V put(K key, V value)
-    {
-        int index = this.keys.indexOf(key);
-        if(index < 0)
-        {
-            this.keys.add(key);
-            this.values.add(value);
-            return null;
-        }
-        else
-        {
-            return this.values.set(index, value);
-        }
-    }
-
-    @Override
-    public V remove(Object key)
-    {
-        int index = this.keys.indexOf(key);
-        if(index < 0)
-        {
-            return null;
-        }
-        this.keys.remove(index);
-        return this.values.remove(index);
-    }
-
-    @Override
-    public void putAll(Map<? extends K, ? extends V> m)
-    {
-        for(Entry<? extends K, ? extends V> entry: m.entrySet())
-        {
-            this.put(entry.getKey(), entry.getValue());
-        }
-    }
-
-    @Override
-    public void clear()
-    {
-        this.keys.clear();
-        this.values.clear();
-    }
-
-    @Override
-    public Set<K> keySet()
-    {
-        return new UniqueList<K>(this.keys);
-    }
-
-    @Override
-    public Collection<V> values()
-    {
-        return new ArrayList<V>(this.values);
-    }
-
-    @Override
-    public Set<Entry<K, V>> entrySet()
-    {
-        Set<Entry<K, V>> entries = new UniqueList<Entry<K, V>>(this.size());
-        for(int i=0; i<this.size(); i++)
-        {
-            entries.add(new EntryImpl(i));
-        }        
-        return entries;
-    }
-    
-    private class EntryImpl implements Entry<K, V>
-    {
-        private final int index;
-        
-        private EntryImpl(int index)
-        {
-            this.index = index;
-        }
-
-        @Override
-        public K getKey()
-        {
-            return keys.get(this.index);
-        }
-
-        @Override
-        public V getValue()
-        {
-            return values.get(this.index);
-        }
-
-        @Override
-        public V setValue(V value)
-        {
-            return values.set(this.index, value);
-        }        
-    }
+    /**
+     * Returns this index of parameter key.
+     * 
+     * @param key Key to retrieve index of
+     * @return index or -1 if key is not present in this {@link ListMap}
+     */
+    public int indexOf(T key);   
 
 }
