@@ -146,7 +146,7 @@ public final class FileUtil
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext())
         {
-            lines.add(scanner.next());
+            lines.add(scanner.nextLine());
         }
         scanner.close();
         return lines;
