@@ -14,8 +14,7 @@ import java.util.List;
  * <i>
  * Written and authored by Jason Bisanti. Free to use and reproduce, but please
  * keep my name as the original author!
- * <br><br></i>
- * 
+ * <br><br></i> 
  * A {@link ListSet} implementation where calls are made to
  * {@link contains(Object)} to ensure no duplicate elements are added. By 
  * default, an {@link ArrayList} is used as the backing data structure. If you
@@ -81,21 +80,7 @@ public class UniqueList<T> extends AbstractListSet<T>
     @Override
     public boolean add(T e)
     {
-        return this.list.contains(e) ? false : this.list.add(e);
-    }
-
-    /**
-     * Returns true if <b>all</b> elements are contained in this {@link List}.
-     * Bear in mind that any duplicate elements from the passed in
-     * {@link Collection} will guarantee a false return.
-     * 
-     * @param c {@link Collection}
-     * @return true if all elements are contained, false if not.
-     */
-    @Override
-    public boolean containsAll(Collection<?> c)
-    {
-        return this.list.containsAll(c);
+        return this.contains(e) ? false : this.list.add(e);
     }
 
     /**

@@ -19,8 +19,9 @@ import org.bisanti.util.StringUtil;
  * keep my name as the original author!
  * <br><br></i>
  * An implementation of the {@link ListSet} interface where a {@link List} is
- * used as the backing data structure. It is the responsibility of incorporating
- * classes to implement the various add methods in accordance with the
+ * used as the backing data structure. The {@link Object#equals(Object)} is used
+ * to determine equality when adding elements. It is the responsibility of 
+ * incorporating classes to implement the various add methods in accordance with the
  * {@link ListSet} interface.
  * 
  * @author Jason Bisanti
@@ -202,4 +203,5 @@ public abstract class AbstractListSet<T> implements ListSet<T>
         final AbstractListSet<?> other = (AbstractListSet<?>) obj;
         return !(this.list != other.list && (this.list == null || !this.list.equals(other.list)));
     }
+    
 }

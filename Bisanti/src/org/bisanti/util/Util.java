@@ -68,6 +68,26 @@ public final class Util
     }
     
     /**
+     * Performs a null-safe equality check based on their
+     * {@link Object#hashCode()}s. This method guarantees that if either 
+     * parameter is null, a {@link NullPointerException} WILL NOT be
+     * thrown before {@link Object#hashCode()} is called on each paramter.
+     * 
+     * @param obj1 Any {@link Object}
+     * @param obj2 Any {@link Object}
+     * @return true if parameters are have equal hash code values, false if not
+     */
+    public static boolean equalHash(final Object obj1, final Object obj2)
+    {
+        if(obj1 == null || obj2 == null)
+        {
+            return obj1 == obj2;
+        }
+        
+        return obj1.hashCode() == obj2.hashCode();
+    }
+    
+    /**
      * Determines if the {@link Number} parameters are numerically equivalent; 
      * the <code>doubleValue()</code> method is used to test equality. This 
      * method is also null-safe; if one parameter is null, no {@link Exception}s
