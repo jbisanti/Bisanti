@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Spliterator;
 import org.bisanti.util.Util;
 
 /**
@@ -313,6 +314,12 @@ public class SubSetList<T> implements ListSet<T>
     {
         return this.parent.subList(this.offset + fromIndex, this.maxIndex - toIndex);
     }
+    
+    @Override
+    public Spliterator<T> spliterator() 
+    {
+        return this.parent.spliterator();
+    }
 
     @Override
     public String toString()
@@ -352,7 +359,6 @@ public class SubSetList<T> implements ListSet<T>
         }
         final SubSetList<?> other = (SubSetList<?>) obj;
         return !(this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent)));
-    }
-    
+    }    
     
 }

@@ -8,6 +8,7 @@ package org.bisanti.collections;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Spliterator;
 
 
 /**
@@ -23,4 +24,8 @@ import java.util.Set;
  * @see UniqueList
  * @see HashList
  */
-public interface ListSet<T> extends List<T>, Set<T>{}
+public interface ListSet<T> extends List<T>, Set<T>
+{
+    @Override
+    Spliterator<T> spliterator();    
+}

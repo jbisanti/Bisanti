@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Spliterator;
 import org.bisanti.util.StringUtil;
 
 /**
@@ -179,6 +180,12 @@ public abstract class AbstractListSet<T> implements ListSet<T>
     public String toString()
     {
         return this.getClass().getSimpleName() + '[' + StringUtil.toString(", ", this) + ']';
+    }
+
+    @Override
+    public Spliterator<T> spliterator()
+    {
+        return this.list.spliterator();
     }
 
     @Override

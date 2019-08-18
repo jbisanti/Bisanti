@@ -126,8 +126,11 @@ public final class ArrayUtil
         
         int length = Array.getLength(array);
         Object newArray = Array.newInstance(array.getClass().getComponentType(), length-1);
-        System.arraycopy(array, 0, newArray, 0, index);
-        System.arraycopy(array, index, newArray, index, length-index);
+        if(index > 0)
+        {
+            System.arraycopy(array, 0, newArray, 0, index);
+        }
+        System.arraycopy(array, index+1, newArray, index, length-index-1);
         return newArray;
     }
     
@@ -176,7 +179,7 @@ public final class ArrayUtil
         int length = Array.getLength(array);
         Object newArray = Array.newInstance(array.getClass().getComponentType(), length+1);
         System.arraycopy(array, 0, newArray, 0, length);
-        Array.set(newArray, length+1, value);
+        Array.set(newArray, length, value);
         return newArray;
     }
     
