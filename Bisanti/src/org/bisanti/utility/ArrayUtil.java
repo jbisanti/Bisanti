@@ -1,4 +1,4 @@
-package org.bisanti.util;
+package org.bisanti.utility;
 
 import java.lang.reflect.Array;
 
@@ -13,6 +13,16 @@ import java.lang.reflect.Array;
 public final class ArrayUtil 
 {
     private ArrayUtil(){};
+    
+    /**
+     * Determines if an array is null or empty
+     * @param array Any {@link Object}-based array
+     * @return true if the array is null or has a length of 0, false otherwise
+     */
+    public static boolean isNullOrEmpty(final Object[] array)
+    {
+        return array == null || array.length == 0;
+    }
     
     public static int indexOf(Object value, Object[] array)
     {

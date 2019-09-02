@@ -1,4 +1,4 @@
-package org.bisanti.util;
+package org.bisanti.utility;
 
 /**
  * <i>
@@ -17,7 +17,28 @@ public class NumberPlus extends Number implements Comparable<Number>
     public NumberPlus(Number number)
     {
         this.number = number;
-        this.hashCode = Double.valueOf(this.doubleValue()).hashCode();
+        this.hashCode = Double.valueOf(number.doubleValue()).hashCode();
+    }
+    
+    /**
+     * Determines if the {@link Number} parameters are numerically equivalent; 
+     * the <code>doubleValue()</code> method is used to test equality. This 
+     * method is also null-safe; if one parameter is null, no {@link Exception}s
+     * are thrown and false will be returned.
+     * @param num1 Any {@link Number}
+     * @param num2 Any {@link Number}
+     * @return true if the double values are equivalent, false if not
+     */
+    public static boolean equal(final Number num1, final Number num2)
+    {
+        if(Util.containsNull(num1, num2))
+        {
+            return num1 == num2;
+        }
+        else
+        {
+            return num1.doubleValue() == num2.doubleValue();
+        }
     }
     
     public NumberPlus add(Number number)

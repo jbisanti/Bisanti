@@ -6,6 +6,7 @@
 
 package org.bisanti.util;
 
+import org.bisanti.utility.StringUtil;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -153,7 +154,7 @@ public class StringUtilTest
     public void testToString_Collection_CharSequence()
     {
         List<Integer> list = Arrays.asList(1, 2, 3);
-        assertEquals("1, 2, 3", StringUtil.toString(list, delimiter));
+        assertEquals("1, 2, 3", StringUtil.toString(delimiter, list));
     }
 
     /**
@@ -166,7 +167,7 @@ public class StringUtilTest
         map.put(1, 1d);
         map.put(2, 2d);
         map.put(3, 3d);
-        assertEquals("1:1.0, 2:2.0, 3:3.0", StringUtil.toString(map, ":", delimiter));
+        assertEquals("1:1.0, 2:2.0, 3:3.0", StringUtil.toString(":", delimiter, map));
     }
 
     /**
@@ -346,4 +347,10 @@ public class StringUtilTest
         assertEquals(false, StringUtil.isPrintableAscii('\n'));
     }
     
+    @Test
+    public void testGetStackTrace()
+    {
+        NullPointerException npe = new NullPointerException("This is the message");
+        System.out.println(StringUtil.getStackTrace(npe));
+    }
 }

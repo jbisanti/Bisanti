@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Spliterator;
-import org.bisanti.util.StringUtil;
+import org.bisanti.utility.StringUtil;
 
 /**
  * <i>

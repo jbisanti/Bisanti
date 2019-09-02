@@ -1,9 +1,10 @@
-package org.bisanti.util;
+package org.bisanti.utility;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public final class StringUtil
     // Populate control character map and make it unmodifiable
     static
     {
-        Map<Character, String> map = new HashMap<Character, String>();
+        Map<Character, String> map = new HashMap<>();
         map.put('\t', "\\t");
         map.put('\b', "\\b");
         map.put('\n', "\\n");
@@ -62,7 +63,7 @@ public final class StringUtil
      * The default value was an arbitrary decision based on average toString()
      * lengths. Increase or decrease this value as you see fit.
      */
-    public static int TOSTRING_CAPACITY = 25;
+    public static int TOSTRING_CAPACITY = 32;
     
     /**
      * Private constructor to prevent instantiation.
@@ -138,7 +139,7 @@ public final class StringUtil
     }
     
     /**
-     * A convenience method to print the each toString() value for each element
+     * A convenience method to print each toString() value for each element
      * in any {@link Collection}.
      * 
      * @param delimiter {@link CharSequence} to print between elements
@@ -147,9 +148,9 @@ public final class StringUtil
      */
     public static String toString(final CharSequence delimiter, final Collection collection)
     {
-        if(!Util.isNullOrEmpty(collection))
-        {
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        if(!CollectionUtil.isNullOrEmpty(collection))
+        {            
             Iterator it = collection.iterator();
             if(it.hasNext())
             {
@@ -159,10 +160,8 @@ public final class StringUtil
             {
                 sb.append(delimiter).append(it.next());
             }
-            return sb.append(']').toString();
         }        
-        
-        return "";        
+        return sb.toString();
     }
     
     /**
@@ -262,32 +261,6 @@ public final class StringUtil
     }
     
     /**
-     * A convenience method to print the toString() value of each {@link Object}
-     * from a {@link Collection}.
-     * 
-     * @param collection Any {@link Collection} instance
-     * @param delimiter {@link CharSequence} separating each toString() value
-     * @return User-friendly {@link String} of all toString() values
-     */
-    public static String toString(final Collection collection, final CharSequence delimiter)
-    {        
-        if(Util.isNullOrEmpty(collection))
-        {
-            return "";            
-        }
-        
-        StringBuilder builder = new StringBuilder(collection.size() * 16);
-        Iterator it = collection.iterator();
-        builder.append(it.next());
-        while (it.hasNext())
-        {
-            builder.append(delimiter);
-            builder.append(it.next());
-        }
-        return builder.toString();
-    }
-    
-    /**
      * A convenience method to print the toString() value of each {@link Entry}
      * from a {@link Map}.
      * 
@@ -297,7 +270,7 @@ public final class StringUtil
      * @param entryDelimiter {@link CharSequence} separating each {@link Entry}
      * @return User-friendly {@link String} of {@link Entry} toString() values
      */
-    public static String toString(final Map map, final CharSequence keyValueDelimiter, final CharSequence entryDelimiter)
+    public static String toString(final CharSequence keyValueDelimiter, final CharSequence entryDelimiter, final Map map)
     {        
         if(Util.isNullOrEmpty(map))
         {
@@ -328,9 +301,16 @@ public final class StringUtil
      */
     public static String getStackTrace(Throwable throwable)
     {
-        final StringWriter stringWriter = new StringWriter();
-        throwable.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
+        try(final StringWriter stringWriter = new StringWriter();
+                final PrintWriter pw = new PrintWriter(stringWriter))
+        {
+            throwable.printStackTrace(pw);
+            return stringWriter.toString();
+        }
+        catch(Exception ex)
+        {
+            return String.valueOf(throwable);
+        }
     }
     
     /**
@@ -370,6 +350,11 @@ public final class StringUtil
         }
         
         return false;
+    }
+    
+    public static <T extends CharSequence> boolean contains(final boolean matchCase, final T container, final T sequence)
+    {
+        return indexOf(matchCase, 0, container, sequence) >= 0;
     }
     
     /**
@@ -728,4 +713,15 @@ public final class StringUtil
         return character > 32 && character < 127;
     }
     
+    public static String getFileSize(long bytes)
+    {
+        Double decimal = Double.valueOf(bytes);
+        if(decimal < 1024)
+        {
+            return bytes + " B";
+        }
+        
+        int bits = (63 - Long.numberOfLeadingZeros(bytes)) / 10; 
+        return String.format("%.2f %sB", decimal / (1L << (bits*10)), " KMGTPE".charAt(bits));
+    }
 }

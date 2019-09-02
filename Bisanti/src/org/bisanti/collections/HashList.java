@@ -8,7 +8,7 @@ package org.bisanti.collections;
 
 import java.util.Collection;
 import java.util.List;
-import org.bisanti.util.Util;
+import org.bisanti.utility.Util;
 
 /**
  * <i>
