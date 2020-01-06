@@ -20,6 +20,28 @@ public class NumberPlus extends Number implements Comparable<Number>
         this.hashCode = Double.valueOf(number.doubleValue()).hashCode();
     }
     
+    public static Number valueOf(Object o)
+    {
+        try
+        {
+            final String s = String.valueOf(o).trim();
+            if(StringUtil.equal(false, s, "true"))
+            {
+                return 1;
+            }
+            else if(StringUtil.equal(false, s, "false"))
+            {
+                return -1;
+            }
+                   
+            return Double.valueOf(s);
+        }
+        catch(Exception ex)
+        {
+            return Double.NaN;
+        }
+    }
+    
     /**
      * Determines if the {@link Number} parameters are numerically equivalent; 
      * the <code>doubleValue()</code> method is used to test equality. This 

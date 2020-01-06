@@ -1,5 +1,9 @@
 package org.bisanti.utility;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -298,6 +302,29 @@ public final class Util
             }
         }
         return hash;
+    }
+    
+    /**
+     * Helper method to get all lines of text in a {@link List} from any
+     * {@link InputStream}.
+     * 
+     * @param is {@link InputStream}
+     * @return {@link List} of each {@link String} line
+     * @throws IOException 
+     */
+    public static List<String> getLines(InputStream is) throws IOException
+    {
+        try(InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr))
+        {
+            List<String> lines = new ArrayList<>();
+            String line;
+            while((line=br.readLine()) != null)
+            {
+                lines.add(line);
+            }
+            return lines;
+        }
     }
     
 }

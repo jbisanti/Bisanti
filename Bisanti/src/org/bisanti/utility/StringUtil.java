@@ -1,10 +1,12 @@
 package org.bisanti.utility;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -713,6 +715,15 @@ public final class StringUtil
         return character > 32 && character < 127;
     }
     
+    /**
+     * Converts the size of a file in bytes to a human readable format. E.g., 
+     * 10.56 MB, 237 KB, 4.56 GB, etc. This solution was taken from the 
+     * famous StackOverflow post at: https://stackoverflow.com/a/24805871
+     * 
+     * @param bytes Length in bytes of the file, typically gotten by 
+     * {@link Files#size(Path)} or {@link File#length()}.
+     * @return Human readable {@link String} of file size.
+     */
     public static String getFileSize(long bytes)
     {
         Double decimal = Double.valueOf(bytes);
