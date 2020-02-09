@@ -128,7 +128,7 @@ public class TreeList<T> extends AbstractListSet<T> implements NavigableSet<T>
         
         for(T element: c)
         {
-            this.add(index, element);
+            this.add(index++, element);
         }
         
         return oldSize != super.size();
@@ -191,7 +191,7 @@ public class TreeList<T> extends AbstractListSet<T> implements NavigableSet<T>
             int compare2 = this.compare(element, super.get(index));
             if (compare1 > 0 && compare2 < 0)
             {
-                super.list.add(index++, element);
+                super.list.add(index, element);
             }     
         }
     }
@@ -407,7 +407,7 @@ public class TreeList<T> extends AbstractListSet<T> implements NavigableSet<T>
         return this.isEmpty() ? null : this.list.get(super.size()-1);
     }
     
-    private class SubsetNavigableList<V extends T> extends SubSetList<V> implements NavigableSet<V>
+    private class SubsetNavigableList<V extends T> extends SubList<V> implements NavigableSet<V>
     {
         private SubsetNavigableList(ListSet<V> parent, int fromIndex, int toIndex)
         {

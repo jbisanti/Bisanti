@@ -170,4 +170,17 @@ public class CollectionUtil
         return list;
     }
     
+    /**
+     * Adds the value to the collection if it is a non-null value. 
+     * 
+     * @param <T>
+     * @param collection {@link Collection}
+     * @param value Potential {@link Object} to add
+     * @return true if added, false if not
+     */
+    public static <T> boolean addIfNonNull(Collection<T> collection, T value)
+    {
+        return value == null ? false : collection.add(value);
+    }
+    
 }

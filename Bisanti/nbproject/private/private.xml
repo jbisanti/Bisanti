@@ -4,21 +4,34 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/Util.java</file>
-            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/AbstractListSet.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/ArrayUtilTest.java</file>
-            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/PathUtil.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/ArrayUtil.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/MapUtil.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/ClassUtil.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/utility/ClassUtilTest.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/FileUtil.java</file>
-            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/Pair.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/CollectionUtil.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/utility/PathUtilTest.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ConcurrentList.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ListSet.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/StringUtil.java</file>
-            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/StringUtilTest.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/AbstractListSetTest.java</file>
+            <file>jar:file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/lib/junit_4/junit-4.12-sources.jar!/org/junit/internal/runners/statements/RunAfters.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/Util.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/AbstractListSet.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/PathUtil.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/UniqueList.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/Pair.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/SubList.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/ListTest.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/ListMap.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/ConcurrentListTest.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/util/StringUtilTest.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/DualListMap.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/TreeListTest.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/TreeList.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/utility/NumberPlus.java</file>
+            <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/src/org/bisanti/collections/HashList.java</file>
             <file>file:/C:/Users/jason/Documents/GitHub/Bisanti/Bisanti/test/org/bisanti/collections/UniqueListTest.java</file>
         </group>
     </open-files>

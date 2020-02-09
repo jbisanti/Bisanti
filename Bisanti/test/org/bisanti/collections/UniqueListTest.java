@@ -66,9 +66,9 @@ public class UniqueListTest
     public void testAddAll_int_Collection()
     {
         System.out.println("addAll");
-        UniqueList<Integer> instance = new UniqueList<Integer>();
+        UniqueList<Integer> instance = new UniqueList<>();
         instance.add(9);
-        List<Integer> list = new ArrayList<Integer>(Arrays.asList(1, 3, 5, 7));
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 5, 7));
         instance.addAll(1, list);
         for(int i=0; i<list.size(); i++)
         {
@@ -83,8 +83,8 @@ public class UniqueListTest
     public void testSet()
     {
         System.out.println("set");
-        UniqueList<Integer> instance = new UniqueList<Integer>();
-        List<Integer> list = new ArrayList<Integer>(Arrays.asList(1, 3, 5, 7));
+        UniqueList<Integer> instance = new UniqueList<>();
+        List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 5, 7));
         instance.addAll(list);
         assertEquals(Integer.valueOf(5), instance.set(2, 9));
         assertEquals(2, instance.indexOf(9));

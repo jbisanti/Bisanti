@@ -354,9 +354,120 @@ public final class StringUtil
         return false;
     }
     
+    /**
+     * Determines if the first {@link CharSequence} contains the second
+     * {@link CharSequence}.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequence {link CharSequence} potentially within container
+     * @return true if contained, false if not
+     */
     public static <T extends CharSequence> boolean contains(final boolean matchCase, final T container, final T sequence)
     {
-        return indexOf(matchCase, 0, container, sequence) >= 0;
+        return containsAny(matchCase, container, sequence);
+    }
+    
+    /**
+     * Determines if the first {@link CharSequence} contains any of the 
+     * subsequent {@link CharSequence}.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequences {link CharSequence}s potentially within container
+     * @return true if any are contained, false if not
+     */
+    public static <T extends CharSequence> boolean containsAny(final boolean matchCase, final T container, final T... sequences)
+    {
+        for(T t: sequences)
+        {
+            if(indexOf(matchCase, container, t) >= 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Determines if the first {@link CharSequence} starts with the second
+     * {@link CharSequence}.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequence {link CharSequence} potentially at the beginning of
+     * parameter container
+     * @return true if starts with, false if not
+     */
+    public static <T extends CharSequence> boolean startsWith(final boolean matchCase, final T container, final T sequence)
+    {
+        return startsWithAny(matchCase, container, sequence);
+    }
+    
+    /**
+     * Determines if the first {@link CharSequence} starts with any subsequent
+     * {@link CharSequence}s.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequences {link CharSequence}s potentially at the beginning of
+     * parameter container
+     * @return true if starts with any, false if not
+     */
+    public static <T extends CharSequence> boolean startsWithAny(final boolean matchCase, final T container, final T... sequences)
+    {
+        for(T t: sequences)
+        {
+            if(indexOf(matchCase, container, t) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Determines if the first {@link CharSequence} ends with with any 
+     * subsequent {@link CharSequence}s.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequence {link CharSequence} potentially at the beginning of
+     * parameter container
+     * @return true if ends with, false if not
+     */
+    public static <T extends CharSequence> boolean endsWith(final boolean matchCase, final T container, final T sequence)
+    {
+        return endsWithAny(matchCase, container, sequence);
+    }
+    
+    /**
+     * Determines if the first {@link CharSequence} ends with with any 
+     * subsequent {@link CharSequence}s.
+     * 
+     * @param <T> {@link CharSequence} 
+     * @param matchCase true to match case, false to ignore case
+     * @param container {@link CharSequence} to compare against
+     * @param sequences {link CharSequence}s potentially at the beginning of
+     * parameter container
+     * @return true if ends with any, false if not
+     */
+    public static <T extends CharSequence> boolean endsWithAny(final boolean matchCase, final T container, final T... sequences)
+    {
+        for(T t: sequences)
+        {
+            int lastIndex = lastIndexOf(matchCase, container, t);
+            if(lastIndex >= 0 && lastIndex + t.length() == container.length())
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**

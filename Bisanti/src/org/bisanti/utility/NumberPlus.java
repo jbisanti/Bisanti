@@ -10,14 +10,11 @@ package org.bisanti.utility;
  */
 public class NumberPlus extends Number implements Comparable<Number>
 {
-    private final Number number;
-    
-    private final int hashCode;
+    private Number number;
     
     public NumberPlus(Number number)
     {
         this.number = number;
-        this.hashCode = Double.valueOf(number.doubleValue()).hashCode();
     }
     
     public static Number valueOf(Object o)
@@ -61,6 +58,150 @@ public class NumberPlus extends Number implements Comparable<Number>
         {
             return num1.doubleValue() == num2.doubleValue();
         }
+    }
+    
+    public NumberPlus setValue(Number value)
+    {
+        this.number = value;
+        return this;
+    }
+    
+    public NumberPlus getAndIncrement()
+    {
+        NumberPlus old = new NumberPlus(this.number);
+        Class<? extends Number> c = this.number.getClass();
+        if(c == Integer.class)
+        {
+            this.number = this.number.intValue() + 1;
+        }
+        else if(c == Long.class)
+        {
+            this.number = this.number.longValue() + 1;
+        }
+        else if(c == Double.class)
+        {
+            this.number = this.number.doubleValue() + 1;
+        }
+        else if(c == Float.class)
+        {
+            this.number = this.number.floatValue() + 1;
+        }
+        else if(c == Byte.class)
+        {
+            this.number = this.number.byteValue() + 1;
+        }
+        else if(c == Short.class)
+        {
+            this.number = this.number.shortValue() + 1;
+        }
+        else
+        {
+            throw new RuntimeException(this.number.getClass() + " is not a supported Number type");
+        }
+        return old;
+    }
+    
+    public NumberPlus incrementAndGet()
+    {
+        Class<? extends Number> c = this.number.getClass();
+        if(c == Integer.class)
+        {
+            this.number = this.number.intValue() + 1;
+        }
+        else if(c == Long.class)
+        {
+            this.number = this.number.longValue() + 1;
+        }
+        else if(c == Double.class)
+        {
+            this.number = this.number.doubleValue() + 1;
+        }
+        else if(c == Float.class)
+        {
+            this.number = this.number.floatValue() + 1;
+        }
+        else if(c == Byte.class)
+        {
+            this.number = this.number.byteValue() + 1;
+        }
+        else if(c == Short.class)
+        {
+            this.number = this.number.shortValue() + 1;
+        }
+        else
+        {
+            throw new RuntimeException(this.number.getClass() + " is not a supported Number type");
+        }
+        return this;
+    }
+    
+    public NumberPlus getAndDecrement()
+    {
+        NumberPlus old = new NumberPlus(this.number);
+        Class<? extends Number> c = this.number.getClass();
+        if(c == Integer.class)
+        {
+            this.number = this.number.intValue() - 1;
+        }
+        else if(c == Long.class)
+        {
+            this.number = this.number.longValue() - 1;
+        }
+        else if(c == Double.class)
+        {
+            this.number = this.number.doubleValue() - 1;
+        }
+        else if(c == Float.class)
+        {
+            this.number = this.number.floatValue() - 1;
+        }
+        else if(c == Byte.class)
+        {
+            this.number = this.number.byteValue() - 1;
+        }
+        else if(c == Short.class)
+        {
+            this.number = this.number.shortValue() - 1;
+        }
+        else
+        {
+            throw new RuntimeException(this.number.getClass() + " is not a supported Number type");
+        }
+        return old; 
+    }
+    
+    public NumberPlus decrementAndGet()
+    {
+        Class<? extends Number> c = this.number.getClass();
+        if(c == Integer.class)
+        {
+            this.number = this.number.intValue() - 1;
+        }
+        else if(c == Long.class)
+        {
+            this.number = this.number.longValue() - 1;
+        }
+        else if(c == Double.class)
+        {
+            this.number = this.number.doubleValue() - 1;
+        }
+        else if(c == Float.class)
+        {
+            this.number = this.number.floatValue() - 1;
+        }
+        else if(c == Byte.class)
+        {
+            this.number = this.number.byteValue() - 1;
+        }
+        else if(c == Short.class)
+        {
+            this.number = this.number.shortValue() - 1;
+        }
+        else
+        {
+            throw new RuntimeException(this.number.getClass() + " is not a supported Number type");
+        }
+        return this;
     }
     
     public NumberPlus add(Number number)
@@ -133,7 +274,7 @@ public class NumberPlus extends Number implements Comparable<Number>
     @Override
     public int hashCode()
     {
-        return this.hashCode;
+        return Double.valueOf(number.doubleValue()).hashCode();
     }
 
     @Override

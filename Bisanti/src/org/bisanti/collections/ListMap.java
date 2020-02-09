@@ -70,6 +70,8 @@ public interface ListMap<T, V> extends Map<T, V>
      * @param key Key to retrieve index of
      * @return index or -1 if key is not present in this {@link ListMap}
      */
-    public int indexOf(T key);   
+    public int indexOfKey(T key);   
+    
+    public int indexOfValue(V value);
 
 }

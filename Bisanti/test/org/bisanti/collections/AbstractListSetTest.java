@@ -31,7 +31,7 @@ public class AbstractListSetTest
     @Before
     public void setUp()
     {
-        this.setList = new UniqueList<Number>();
+        this.setList = new UniqueList<>();
     }
     
     @After

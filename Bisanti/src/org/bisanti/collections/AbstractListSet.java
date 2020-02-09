@@ -34,12 +34,12 @@ public abstract class AbstractListSet<T> implements ListSet<T>
     
     public AbstractListSet()
     {
-        this.list = new ArrayList<T>();
+        this.list = new ArrayList<>();
     }
     
     public AbstractListSet(int initialCapacity)
     {
-       this.list = new ArrayList<T>(initialCapacity); 
+       this.list = new ArrayList<>(initialCapacity); 
     }
     
     public AbstractListSet(Collection<? extends T> c)
@@ -173,7 +173,7 @@ public abstract class AbstractListSet<T> implements ListSet<T>
     @Override
     public List<T> subList(int fromIndex, int toIndex)
     {
-        return new SubSetList<T>(this, fromIndex, toIndex);
+        return new SubList<>(this, fromIndex, toIndex);
     }
     
     @Override

@@ -51,27 +51,5 @@ public class Pair<K, V> implements Map.Entry<K, V>
     {
         return this.value;
     }
-
-    /**
-     * Use {@link #getKey()}
-     * @return 
-     * @deprecated 
-     */
-    @Deprecated
-    public K getFirst()
-    {
-        return this.getKey();
-    }
-
-    /**
-     * Use {@link #getValue()}
-     * @return 
-     * @deprecated 
-     */
-    @Deprecated
-    public V getSecond()
-    {
-        return this.getValue();
-    }
     
 }

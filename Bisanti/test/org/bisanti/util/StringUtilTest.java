@@ -236,6 +236,42 @@ public class StringUtilTest
         assertEquals(0, StringUtil.lastIndexOf(true, 4, container, substring));
     }
 
+    @Test
+    public void testStartsWith()
+    {
+        final String container = "abcABCabc";
+        assertEquals(true, StringUtil.startsWith(false, container, "ABC"));
+        assertEquals(false, StringUtil.startsWith(true, container, "ABC"));
+        assertEquals(false, StringUtil.startsWith(false, container, "AC"));
+    }
+    
+    @Test
+    public void testStartsWithAny()
+    {
+        final String container = "abcABCabc";
+        assertEquals(true, StringUtil.startsWithAny(false, container, "123", "ABC"));
+        assertEquals(false, StringUtil.startsWithAny(true, container, "123", "ABC"));
+        assertEquals(false, StringUtil.startsWithAny(false, container, "DC", "X", "123"));
+    }
+    
+    @Test
+    public void testEndsWith()
+    {
+        final String container = "abcABCabc";
+        assertEquals(true, StringUtil.endsWith(false, container, "BC"));
+        assertEquals(false, StringUtil.endsWith(true, container, "BC"));
+        assertEquals(false, StringUtil.endsWith(false, container, "ac"));
+    }
+    
+    @Test
+    public void testEndsWithAny()
+    {
+        final String container = "abcABCabc";
+        assertEquals(true, StringUtil.endsWithAny(false, container, "DD", "BC", "QQ"));
+        assertEquals(false, StringUtil.endsWithAny(true, container, "DD", "BC", "QQ"));
+        assertEquals(false, StringUtil.endsWithAny(false, container, "ac", "dc", "tt"));
+    }
+    
     /**
      * Test of insert method, of class StringUtil.
      */

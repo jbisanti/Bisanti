@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.bisanti.utility.Pair;
 
 /**
  * <i>
@@ -82,26 +83,7 @@ public class DualListMap<K, V> implements ListMap<K, V>
         this.rangeCheck(index);
         final K key = this.keys.remove(index);
         final V value = this.values.remove(index);
-        return new Entry<K, V>()
-        {
-            @Override
-            public K getKey()
-            {
-                return key;
-            }
-
-            @Override
-            public V getValue()
-            {
-                return value;
-            }
-
-            @Override
-            public V setValue(V value)
-            {
-                throw new UnsupportedOperationException();
-            }
-        };
+        return new Pair<>(key, value);
     }
 
     @Override
@@ -188,13 +170,13 @@ public class DualListMap<K, V> implements ListMap<K, V>
     @Override
     public Collection<V> values()
     {
-        return new ArrayList<V>(this.values);
+        return new ArrayList<>(this.values);
     }
 
     @Override
     public Set<Entry<K, V>> entrySet()
     {
-        Set<Entry<K, V>> entries = new UniqueList<Entry<K, V>>(this.size());
+        Set<Entry<K, V>> entries = new UniqueList<>(this.size());
         for(int i=0; i<this.size(); i++)
         {
             entries.add(new EntryImpl(i));
@@ -211,18 +193,13 @@ public class DualListMap<K, V> implements ListMap<K, V>
     @Override
     public Entry<K, V> remove(int index)
     {
-        return new EntryImpl(index);
+        return new Pair<>(this.keys.remove(index), this.values.remove(index));
     }
 
     @Override
     public Entry<K, V> set(int index, K key, V value)
     {
-        if(this.containsKey(key))
-        {
-            return null;
-        }
-        
-        return new EntryOutdated(this.keys.set(index, key), this.values.set(index, value));
+        return new Pair<>(this.keys.set(index, key), this.values.set(index, value));
     }
 
     @Override
@@ -239,9 +216,15 @@ public class DualListMap<K, V> implements ListMap<K, V>
     }
 
     @Override
-    public int indexOf(K key)
+    public int indexOfKey(K key)
     {
         return this.keys.indexOf(key);
+    }
+    
+    @Override
+    public int indexOfValue(V value)
+    {
+        return this.values.indexOf(value);
     }
 
     @Override
@@ -340,75 +323,6 @@ public class DualListMap<K, V> implements ListMap<K, V>
             }
             V value = this.getValue();
             if(value == null ? other.getValue() != null : !value.equals(other.getValue()))
-            {
-                return false;
-            }
-            return true;
-        }
-    }
-    
-    /**
-     * Returns a stale {@link Entry}. That is, this reference is not guaranteed
-     * to be in sync with our {@link ListMap} referent and the
-     * {@link #setValue(java.lang.Object)} method throws an 
-     * {@link UnsupportedOperationException}.
-     */
-    private class EntryOutdated implements Entry<K, V>
-    {
-        private final K key;
-        
-        private final V value;
-        
-        private EntryOutdated(K key, V value)
-        {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public K getKey()
-        {
-            return this.key;
-        }
-
-        @Override
-        public V getValue()
-        {
-            return this.value;
-        }
-
-        @Override
-        public V setValue(V value)
-        {
-            throw new UnsupportedOperationException("Entry reference is no longer valid");
-        }
-
-        @Override
-        public int hashCode()
-        {
-            int hash = 7;
-            hash = 29 * hash + (this.key != null ? this.key.hashCode() : 0);
-            hash = 29 * hash + (this.value != null ? this.value.hashCode() : 0);
-            return hash;
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-            if (getClass() != obj.getClass())
-            {
-                return false;
-            }
-            final EntryOutdated other = (EntryOutdated) obj;
-            if (this.key != other.key && (this.key == null || !this.key.equals(other.key)))
-            {
-                return false;
-            }
-            if (this.value != other.value && (this.value == null || !this.value.equals(other.value)))
             {
                 return false;
             }

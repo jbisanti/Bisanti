@@ -20,31 +20,17 @@ import static org.junit.Assert.*;
  */
 public class ArrayUtilTest
 {
-    private Random random;
+    private static Random random;
     
     public ArrayUtilTest()
     {
-        this.random = new Random(System.currentTimeMillis());
+        
     }
     
     @BeforeClass
     public static void setUpClass()
     {
-    }
-    
-    @AfterClass
-    public static void tearDownClass()
-    {
-    }
-    
-    @Before
-    public void setUp()
-    {
-    }
-    
-    @After
-    public void tearDown()
-    {
+        random = new Random(System.currentTimeMillis());
     }
 
     /**
@@ -74,7 +60,7 @@ public class ArrayUtilTest
     @Test
     public void testIndexOf_byte_byteArr()
     {
-        byte x = Integer.valueOf(this.random.nextInt()).byteValue();
+        byte x = Integer.valueOf(random.nextInt()).byteValue();
         byte y = x++;
         byte[] test = new byte[]{y, y, x, y};
         assertEquals(2, ArrayUtil.indexOf(x, test));

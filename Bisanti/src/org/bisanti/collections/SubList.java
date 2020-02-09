@@ -15,22 +15,24 @@ import org.bisanti.utility.Util;
 
 /**
  * <i>
- * Written and authored by Jason Bisanti. Free to use and reproduce, but please
- * keep my name as the original author!
- * <br><br></i>
- * A {@link ListSet} implementation meant to be a sublist reference for any
- * other {@link ListSet} implementation. Modifications to this instance will 
- * also be reflected to the {@link ListSet} it references.
+ * Written and authored by Jason Bisanti.Free to use and reproduce, but please
+ keep my name as the original author!
+ <br><br></i>
+ A {@link ListSet} implementation meant to be a sublist reference for any
+ other {@link ListSet} implementation. However, it can be used for any 
+ {@link List} implementation in general. Modifications to this instance will 
+ * also be reflected to the {@link List} it references.
  * 
  * @author Jason Bisanti
+ * @param <T> Type of elements
  */
-public class SubSetList<T> implements ListSet<T>
+public class SubList<T> implements ListSet<T>
 {
-    private final ListSet<T> parent;
-    int offset;
-    int maxIndex;
+    protected final List<T> parent;
+    protected int offset;
+    protected int maxIndex;
 
-    public SubSetList(ListSet<T> parent, int fromIndex, int toIndex)
+    public SubList(List<T> parent, int fromIndex, int toIndex)
     {
         this.parent = parent;
         rangeCheck(fromIndex);
@@ -49,11 +51,7 @@ public class SubSetList<T> implements ListSet<T>
 
     private void subRangeCheck(int index)
     {
-        if (index + this.offset > this.parent.size())
-        {
-            throw new IndexOutOfBoundsException("Index value is too large");
-        } 
-        else if (index < 0)
+        if (this.isEmpty() || index < 0 || index >= this.size())
         {
             throw new IndexOutOfBoundsException();
         }
@@ -62,31 +60,18 @@ public class SubSetList<T> implements ListSet<T>
     @Override
     public boolean add(T e)
     {
-        final int oldSize = this.parent.size();
-        this.parent.add(maxIndex, e);
-        if (oldSize != this.parent.size())
+        boolean added;
+        if (added = this.parent.add(e))
         {
             maxIndex++;
-            return true;
         } 
-        else
-        {
-            return false;
-        }
+        return added;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c)
     {
-        boolean changed = false;
-        for (T element : c)
-        {
-            if (this.add(element))
-            {
-                changed = true;
-            }
-        }
-        return changed;
+        return this.addAll(this.maxIndex, c);
     }
 
     @Override
@@ -94,30 +79,33 @@ public class SubSetList<T> implements ListSet<T>
     {
         this.subRangeCheck(index);
         final int oldSize = this.parent.size();
-        for (T element : c)
+        boolean added;
+        if(added = this.parent.addAll(index, c))
         {
-            int existingIndex = this.parent.indexOf(element);
-            if (existingIndex >= this.offset && existingIndex <= this.maxIndex)
-            {
-                this.parent.add(index++, element);
-                this.maxIndex++;
-            }
+            this.maxIndex += this.parent.size() - oldSize;
         }
-        return oldSize != this.parent.size();
+        return added;
     }
 
     @Override
     public T set(int index, T element)
     {
         this.subRangeCheck(index);
-        return this.parent.set(index, element);
+        return this.parent.set(index + this.offset, element);
     }
 
     @Override
     public void add(int index, T element)
     {
         this.subRangeCheck(index);
-        this.parent.add(index, element);
+        this.subRangeCheck(index);
+        final int oldSize = this.parent.size();
+        this.parent.add(index + this.offset, element);
+        final int newSize = this.parent.size();
+        if(newSize != oldSize)
+        {
+            this.maxIndex += newSize - oldSize;
+        }
     }
 
     @Override
@@ -149,40 +137,13 @@ public class SubSetList<T> implements ListSet<T>
     @Override
     public Iterator<T> iterator()
     {
-        return new Iterator<T>()
-        {
-            private int currentIndex = 0;
-            
-            @Override
-            public boolean hasNext()
-            {
-                return this.currentIndex + offset < maxIndex;
-            }
-
-            @Override
-            public T next()
-            {
-                return parent.get(this.currentIndex++ + offset);
-            }
-
-            @Override
-            public void remove()
-            {
-                parent.remove(this.currentIndex);
-                maxIndex--;
-            }
-        };
+        return new SubListIterator();
     }
 
     @Override
     public Object[] toArray()
     {
-        Object[] array = new Object[this.maxIndex - this.offset];
-        for (int i = this.offset; i < this.maxIndex; i++)
-        {
-            array[i] = this.parent.get(i);
-        }
-        return array;
+        return this.toArray(new Object[this.size()]);
     }
 
     @Override
@@ -192,12 +153,8 @@ public class SubSetList<T> implements ListSet<T>
         {
             a = (T[]) Array.newInstance(a.getClass(), this.maxIndex - this.offset);
         }
-
-        for (int i = this.offset; i < this.maxIndex; i++)
-        {
-            a[i] = (T) this.parent.get(i);
-        }
-
+        T[] me = (T[]) parent.subList(this.offset, this.maxIndex).toArray();
+        System.arraycopy(me, 0, a, 0, me.length);
         return a;
     }
 
@@ -233,24 +190,38 @@ public class SubSetList<T> implements ListSet<T>
     @Override
     public boolean removeAll(Collection<?> c)
     {
-        final int oldSize = this.size();
-        for(Object o: c)
+        boolean changed = false;
+        for (int i = this.maxIndex; i >= this.offset; i--)
         {
-            this.remove(o);
+            if(c.contains(this.parent.get(i)) && this.parent.remove(i) != null)
+            {
+                changed = true;
+            }            
         }
-        return oldSize != this.size();
+        return changed;
     }
 
     @Override
     public boolean retainAll(Collection<?> c)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean changed = false;
+        for (int i = this.maxIndex; i >= this.offset; i--)
+        {
+            if(!c.contains(this.parent.get(i)) && this.parent.remove(i) != null)
+            {
+                changed = true;
+            }            
+        }
+        return changed;
     }
 
     @Override
     public void clear()
     {
-        this.parent.subList(this.offset, this.maxIndex).clear();
+        while(this.maxIndex > this.offset)
+        {
+            this.remove(this.maxIndex - this.offset - 1);
+        }
         this.offset = this.maxIndex = 0;
     }
 
@@ -263,7 +234,7 @@ public class SubSetList<T> implements ListSet<T>
     @Override
     public T remove(int index)
     {
-        T removed = this.parent.remove(this.offset + index);
+        T removed = this.parent.remove((int)(this.offset + index));
         if(removed != null)
         {
             this.maxIndex--;
@@ -357,8 +328,32 @@ public class SubSetList<T> implements ListSet<T>
         {
             return false;
         }
-        final SubSetList<?> other = (SubSetList<?>) obj;
+        final SubList<?> other = (SubList<?>) obj;
         return !(this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent)));
     }    
+    
+    public class SubListIterator<T> implements Iterator<T>
+    {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext()
+        {
+            return this.currentIndex + offset < maxIndex;
+        }
+
+        @Override
+        public T next()
+        {
+            return (T) parent.get(this.currentIndex++ + offset);
+        }
+
+        @Override
+        public void remove()
+        {
+            parent.remove(this.currentIndex + offset - 1);
+            maxIndex--;
+        }
+    }
     
 }
