@@ -3,12 +3,14 @@ package com.jdb.utility;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -187,9 +189,7 @@ public final class FileUtil
      * @param filename Name of file (absolute path)
      * @return {@link List} with each line of text
      * @throws IOException 
-     * @deprecated
      */
-    @Deprecated
     public static List<String> readText(String filename) throws IOException
     {
         return readText(new File(filename));
@@ -202,9 +202,7 @@ public final class FileUtil
      * @param file {@link File}
      * @return {@link List} with each line of text
      * @throws IOException 
-     * @deprecated
      */
-    @Deprecated
     public static List<String> readText(File file) throws IOException
     {
         return readText(file, 10);
@@ -218,7 +216,6 @@ public final class FileUtil
      * @param capacity Initial size of backing array
      * @return {@link List} with each line of text
      * @throws IOException 
-     * @deprecated
      */
     public static List<String> readText(File file, int capacity) throws IOException
     {
@@ -231,6 +228,23 @@ public final class FileUtil
             }
         }
         return lines;
+    }
+    
+    public static void readText(File file, Map<Long, String> mapToWrite) throws IOException
+    {
+        readText(file, Charset.defaultCharset(), mapToWrite);
+    }
+    
+    public static void readText(File file, Charset charset, Map<Long, String> mapToWrite) throws IOException
+    {
+        long line = 0;
+        try (Scanner scanner = new Scanner(file, charset)) 
+        {
+            while(scanner.hasNext())
+            {
+                mapToWrite.put(++line, scanner.nextLine());
+            }
+        }
     }
     
     /**
